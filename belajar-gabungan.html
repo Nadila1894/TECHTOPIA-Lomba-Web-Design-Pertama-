@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Course - Coding Learn</title>
+    <!-- Font Pixel untuk judul -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <!-- Font utama Anda -->
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    
+    <style>
+        /* ================================================= */
+        /* === CSS HANYA UNTUK HALAMAN INI - SAMA PERSIS SEPERTI PDF === */
+        /* ================================================= */
+        :root {
+            --primary: #050a26;
+            --secondery: #ffc700;
+            --latar: #0E1623; /* Warna latar dari desain */
+            --border-color: #2d3748;
+            --text-primary: #ffffff;
+            --text-secondary: #a0aec0;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            background-color: var(--latar); 
+            color: var(--text-primary);
+            font-family: "Source Code Pro", monospace;
+        }
+        /* Navbar tiruan - HANYA untuk placeholder visual, tidak akan mengganggu navbar asli Anda */
+        .placeholder-navbar {
+            padding: 1.5rem 2rem;
+            background-color: var(--primary);
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        /* Hero Section - Sesuai Slide 3 */
+        .hero-container {
+            height: 80vh; /* Sedikit lebih pendek agar bagian bawah terlihat */
+            width: 100%;
+            background-image: url();
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            display: flex;
+            align-items: center;
+            padding: 0 10%;
+        }
+        .hero-content { max-width: 600px; }
+        .hero-tags { display: flex; gap: 1rem; margin-bottom: 1.5rem; }
+        .hero-tags span {
+            border: 1.5px solid var(--text-primary);
+            padding: 0.5rem 1rem;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+        }
+        .hero-title {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+        }
+        .hero-description {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            max-width: 500px;
+            margin-bottom: 2rem;
+        }
+        .hero-button {
+            background-color: var(--secondery);
+            color: var(--primary);
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: bold;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Progress Section - Sesuai Slide 4 */
+        .progress-section {
+            display: flex;
+            justify-content: space-between;
+            background-color: #121C2D;
+            padding: 3rem 10%;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        .chapters-container {
+            flex: 3;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .chapter-card {
+            display: flex;
+            align-items: center;
+            background-color: var(--latar);
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .chapter-card:hover {
+            background-color: #1a263a;
+        }
+        .chapter-number {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 2.5rem;
+            color: var(--text-secondary);
+            margin-right: 2rem;
+        }
+        .chapter-title {
+            font-size: 1.5rem;
+            font-weight: 500;
+        }
+
+        .user-progress-container {
+            flex: 1;
+            min-width: 280px;
+        }
+        .user-profile-card {
+            background-color: var(--latar);
+            border: 1px solid var(--border-color);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        .user-name { font-size: 1.5rem; font-weight: bold; margin-bottom: 0.5rem; }
+        .user-level { color: var(--text-secondary); margin-bottom: 1rem; }
+        .view-profile-btn { color: var(--secondery); text-decoration: none; }
+        
+        .progress-details-card {
+            background-color: var(--latar);
+            border: 1px solid var(--border-color);
+            padding: 1.5rem;
+        }
+        .progress-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        .progress-label { color: var(--text-secondary); }
+        .progress-value { font-weight: bold; }
+        .club-tag { background-color: #3b82f6; color: white; padding: 2px 6px; font-size: 0.7rem; border-radius: 4px; margin-left: 0.5rem; }
+    </style>
+</head>
+<body>
+    
+    <!-- Bagian ini HANYA placeholder agar Anda tahu posisi navbar asli Anda nanti -->
+    <div class="placeholder-navbar">
+        BELOM KEPANGGIL
+    </div>
+
+    <!-- Konten Mulai, Persis Seperti PDF -->
+    <main>
+        <!-- Bagian Hero Sesuai Slide 3 -->
+        <section class="hero-container">
+            <div class="hero-content">
+                <div class="hero-tags">
+                    <span>BEGINNER</span><span>COURSE</span>
+                </div>
+                <h1 class="hero-title">HTML</h1>
+                <p class="hero-description">Create your first website with HTML, the building blocks of the web and dive into the world of web development.</p>
+                <a href="#" class="hero-button">Resume Learning</a>
+            </div>
+        </section>
+
+        <!-- Bagian Progress Sesuai Slide 4 (Langsung di bawahnya) -->
+        <section class="progress-section">
+            <div class="chapters-container">
+                <div class="chapter-card">
+                    <span class="chapter-number">1</span>
+                    <h2 class="chapter-title">Elements</h2>
+                </div>
+                <div class="chapter-card">
+                    <span class="chapter-number">2</span>
+                    <h2 class="chapter-title">Structure</h2>
+                </div>
+                <div class="chapter-card">
+                    <span class="chapter-number">3</span>
+                    <h2 class="chapter-title">Forms</h2>
+                </div>
+                 <div class="chapter-card">
+                    <span class="chapter-number">4</span>
+                    <h2 class="chapter-title">Semantic HTML<span class="club-tag">Club</span></h2>
+                </div>
+            </div>
+            <aside class="user-progress-container">
+                <div class="user-profile-card">
+                    <h3 class="user-name">Your Name</h3>
+                    <p class="user-level">Level 1</p>
+                    <a href="#" class="view-profile-btn">View Profile</a>
+                </div>
+                <div class="progress-details-card">
+                    <h4>Course Progress</h4>
+                    <div class="progress-item">
+                        <span class="progress-label">Exercises</span>
+                        <span class="progress-value">1 / 26</span>
+                    </div>
+                    <div class="progress-item">
+                        <span class="progress-label">Projects Completed</span>
+                        <span class="progress-value">0 / 1</span>
+                    </div>
+                    <div class="progress-item">
+                        <span class="progress-label">XP Earned</span>
+                        <span class="progress-value">10 / 430</span>
+                    </div>
+                    <div class="progress-item">
+                        <span class="progress-label">Course Badges</span>
+                        <span class="progress-value">1 / 4</span>
+                    </div>
+                </div>
+            </aside>
+        </section>
+    </main>
+</body>
+</html>
+
