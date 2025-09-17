@@ -6,7 +6,7 @@
     <title>revisi 2</title>
 
     <!-- css -->
-    <link rel="stylesheet" href="/css/forum.css">
+    <link rel="stylesheet" href="forum.css">
    
    <!-- font code -->
      <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,18 +30,32 @@
     <!-- navbar mulai -->
      <header>
         <nav class="navbar">
-            <img class="navbar-logo logo-big" src="/img/logo revisi 2.png" alt="logo">
+            <img class="navbar-logo logo-big" src="logo revisi 2.png" alt="logo">
             
             <!-- navbar group -->
             <ul class="navbar-group navbar-expanded">
                 <li class="navbar-item"><a href="index.html">Home</a></li>
-                <li class="navbar-item"><a href="">Learn &#9662;</a>
-                    <ul class="navbar-down">
-                        <li class="navbar-item"><a href="">Web Dev</a></li>
-                        <li class="navbar-item"><a href="">Game Dev</a></li>
-                        <li class="navbar-item"><a href="">Cybersecurity</a></li>
-                    </ul>
-                </li>
+                <li class="navbar-item has-mega-menu">
+    <a href="#">Learn &#9662;</a>
+    <!-- [BARU] Ini adalah Mega Menu untuk Desktop -->
+    <div class="mega-menu">
+        <div class="mega-menu-column recommended">
+            <h4>RECOMMENDED</h4>
+            <a href="belajar-html.html" class="course-card"><img src="https://placehold.co/40x40/ef4444/ffffff?text=H" alt="HTML Icon"><div><strong>HTML</strong><p>Create your first website.</p></div></a>
+            <a href="#" class="course-card"><img src="https://placehold.co/40x40/2563eb/ffffff?text=Py" alt="Py Icon"><div><strong>Python</strong><p>Learn the basics of programming.</p></div></a>
+            <a href="#" class="all-courses-btn">All Courses &gt;</a>
+        </div>
+        <div class="mega-menu-column"><h4>WEB DEVELOPMENT</h4><ul><li><a href="belajar-html.html">HTML</a></li><li><a href="#">CSS</a></li><li><a href="#">JavaScript</a></li><li><a href="#">React</a></li></ul></div>
+        <div class="mega-menu-column"><h4>DATA SCIENCE</h4><ul><li><a href="#">Python</a></li><li><a href="#">NumPy</a></li><li><a href="#">SQL</a></li></ul></div>
+        <div class="mega-menu-column"><h4>TOOLS</h4><ul><li><a href="#">Command Line</a></li><li><a href="#">Git & GitHub</a></li></ul></div>
+    </div>
+    <!-- Dropdown asli Anda, digunakan untuk mobile -->
+    <ul class="navbar-down">
+        <li class="navbar-item"><a href="#">Web Dev</a></li>
+        <li class="navbar-item"><a href="#">Game Dev</a></li>
+        <li class="navbar-item"><a href="#">Cybersecurity</a></li>
+    </ul>
+</li> 
                 <li class="navbar-item"><a href="">Language &#9662;</a>
                     <ul class="navbar-down">
                         <li class="navbar-item"><a href="">HTML CSS & JAVASCRIPT</a></li>
@@ -154,7 +168,7 @@
     <div class="main-wrapper">
     <main class="content">
       <div class="content-header">
-        <img src="/img/logo versi 2.png" alt="logo" class="community-logo">
+        <img src="logo versi 2.png" alt="logo" class="community-logo">
         <h1>/CODING <span>LEARN</span> COMMUNITY</h1>
       </div>
       <p class="subtitle">Ayo Belajar Dengan Semua Orang Dari Seluruh dunia ✨</p>
@@ -167,14 +181,14 @@
       
       <div class="post">
         <div class="post-header">
-          <img src="/img/profil.jpeg" alt="avatar" class="avatar">
+          <img src="profil.jpeg" alt="avatar" class="avatar">
           <div>
             <strong>Sonny Li</strong> <span class="tag"># General</span>
             <span class="meta">@sonny · 1d</span>
           </div>
         </div>
         <p>Working on the early Google Chrome with the team 🚀</p>
-        <img src="/img/pixel 2.jpg" alt="post image" class="post-img">
+        <img src="pixel 2.jpg" alt="post image" class="post-img">
         <div class="profil-icon">
           <div class="like-icon like">
             <button><i class="fa-solid fa-heart"></i> <span class="like-count">12</span></button>
@@ -196,14 +210,14 @@
       
       <div class="post">
         <div class="post-header">
-          <img src="/img/orang.jpg" alt="avatar" class="avatar">
+          <img src="orang.jpg" alt="avatar" class="avatar">
           <div>
             <strong>Jane Doe</strong> <span class="tag"># Web Development</span>
             <span class="meta">@jane · 2d</span>
           </div>
         </div>
         <p>Just finished my first portfolio website 🎉</p>
-        <img src="/img/pixel 3.jpg" alt="post image" class="post-img">
+        <img src="pixel 3.jpg" alt="post image" class="post-img">
 
         <!-- icon -->
         <div class="profil-icon">
@@ -227,14 +241,14 @@
 
       <div class="post">
         <div class="post-header">
-          <img src="/img/orang.jpg" alt="avatar" class="avatar">
+          <img src="orang.jpg" alt="avatar" class="avatar">
           <div>
             <strong>Jane Doe</strong> <span class="tag"># Web Development</span>
             <span class="meta">@jane · 2d</span>
           </div>
         </div>
         <p>Just finished my first portfolio website 🎉</p>
-        <img src="/img/pixel 5.jpg" alt="post image" class="post-img">
+        <img src="pixel 5.jpg" alt="post image" class="post-img">
 
         <!-- icon -->
         <div class="profil-icon">
@@ -258,14 +272,14 @@
 
       <div class="post">
         <div class="post-header">
-          <img src="/img/orang.jpg" alt="avatar" class="avatar">
+          <img src="orang.jpg" alt="avatar" class="avatar">
           <div>
             <strong>Jane Doe</strong> <span class="tag"># Web Development</span>
             <span class="meta">@jane · 2d</span>
           </div>
         </div>
         <p>Just finished my first portfolio website 🎉</p>
-        <img src="/img/pixel 3.jpg" alt="post image" class="post-img">
+        <img src="pixel 3.jpg" alt="post image" class="post-img">
 
         <!-- icon -->
         <div class="profil-icon">
@@ -289,14 +303,14 @@
 
       <div class="post">
         <div class="post-header">
-          <img src="/img/orang.jpg" alt="avatar" class="avatar">
+          <img src="orang.jpg" alt="avatar" class="avatar">
           <div>
             <strong>Jane Doe</strong> <span class="tag"># Web Development</span>
             <span class="meta">@jane · 2d</span>
           </div>
         </div>
         <p>Just finished my first portfolio website 🎉</p>
-        <img src="/img/pixel 3.jpg" alt="post image" class="post-img">
+        <img src="pixel 3.jpg" alt="post image" class="post-img">
 
         <!-- icon -->
         <div class="profil-icon">
@@ -320,14 +334,14 @@
 
       <div class="post">
         <div class="post-header">
-          <img src="/img/orang.jpg" alt="avatar" class="avatar">
+          <img src="orang.jpg" alt="avatar" class="avatar">
           <div>
             <strong>Jane Doe</strong> <span class="tag"># Web Development</span>
             <span class="meta">@jane · 2d</span>
           </div>
         </div>
         <p>Just finished my first portfolio website 🎉</p>
-        <img src="/img/pixel 3.jpg" alt="post image" class="post-img">
+        <img src="pixel 3.jpg" alt="post image" class="post-img">
 
         <!-- icon -->
         <div class="profil-icon">
@@ -382,6 +396,6 @@
 
 
     <!-- javascript -->
-      <script src="/js/forum.js"></script>
+      <script src="forum.js"></script>
 </body>
 </html>
