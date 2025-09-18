@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Lab - Coding Learn</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-dark-primary: #0E1623;
+            --bg-dark-secondary: #121C2D;
+            --bg-editor: #1A2841;
+            --text-primary: #FFFFFF;
+            --text-secondary: #a0aec0;
+            --border-color: #2d3748;
+            --yellow: #ffc700;
+            --green: #4ade80;
+            --pixel-yellow-border: #c58d0d;
+            --pixel-yellow-shadow: #946300;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-dark-primary);
+            color: var(--text-primary);
+            font-family: 'Source Code Pro', monospace;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Header */
+        .lab-header {
+            display: flex;
+            align-items: center;
+            padding: 1rem 2rem;
+            background-color: var(--bg-dark-secondary);
+            border-bottom: 2px solid var(--border-color);
+            flex-shrink: 0;
+        }
+
+        .lab-header .brand {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.2rem;
+            color: var(--yellow);
+        }
+
+        .lab-header .breadcrumb {
+            margin-left: 2rem;
+            color: var(--text-secondary);
+        }
+
+        .lab-header .progress-bar-container {
+            display: flex;
+            align-items: center;
+            margin-left: 1rem;
+            flex-grow: 1;
+            max-width: 200px;
+        }
+
+        .lab-header .progress-bar {
+            width: 100%;
+            height: 10px;
+            background-color: var(--bg-editor);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .lab-header .progress-bar-fill {
+            width: 14%;
+            height: 100%;
+            background-color: var(--green);
+            border-radius: 5px;
+        }
+        
+        .lab-header .progress-percent {
+            margin-left: 0.75rem;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        /* Main Content Area */
+        .lab-main {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr 1fr;
+            height: calc(100vh - 120px);
+            gap: 2px;
+            background-color: var(--border-color);
+            padding: 2px;
+        }
+
+        .panel {
+            background-color: var(--bg-dark-secondary);
+            padding: 1.5rem;
+            overflow-y: auto;
+        }
+
+        /* Panel Kiri: Materi */
+        .panel-instructions h1 {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            line-height: 1.4;
+        }
+
+        .panel-instructions h2 {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.2rem;
+            color: var(--yellow);
+            margin-bottom: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .panel-instructions p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        
+        .panel-instructions code {
+            background-color: var(--bg-editor);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        /* Panel Tengah: Editor Kode */
+        .panel-editor {
+            display: flex;
+            flex-direction: column;
+            background-color: var(--bg-editor);
+            padding: 0;
+        }
+
+        .editor-header {
+            padding: 0.75rem 1.5rem;
+            background-color: var(--bg-dark-secondary);
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .editor-header i {
+            color: #ef4444;
+        }
+
+        /* [NEW] Editor with Line Numbers */
+        .editor-area {
+            display: flex;
+            flex-grow: 1;
+            position: relative;
+        }
+
+        #line-numbers {
+            padding: 1rem 0.75rem 1rem 1.5rem;
+            font-size: 1rem;
+            color: var(--text-secondary);
+            text-align: right;
+            user-select: none;
+            line-height: 1.5;
+        }
+        
+        #code-editor {
+            flex-grow: 1;
+            width: 100%;
+            background-color: transparent;
+            border: none;
+            color: var(--text-primary);
+            font-family: 'Source Code Pro', monospace;
+            font-size: 1rem;
+            padding: 1rem;
+            resize: none;
+            line-height: 1.5;
+        }
+        
+        #code-editor:focus {
+            outline: none;
+        }
+
+        .editor-controls {
+            padding: 1rem 1.5rem;
+            background-color: var(--bg-dark-secondary);
+            display: flex;
+            gap: 1rem;
+        }
+
+        .editor-btn {
+            font-family: 'Press Start 2P', cursive;
+            padding: 0.75rem 1.5rem;
+            font-size: 0.9rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .btn-run { background-color: #2563eb; color: white; }
+        .btn-run:hover { background-color: #3b82f6; }
+        .btn-submit { background-color: transparent; color: var(--text-secondary); border: 2px solid var(--border-color); }
+        .btn-submit:hover { background-color: var(--border-color); color: var(--text-primary); }
+
+        /* Panel Kanan: Output */
+        .panel-output {
+            padding: 0;
+            background-color: var(--text-primary);
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* [NEW] Output Header */
+        .output-header {
+            padding: 0.75rem 1.5rem;
+            background-color: var(--bg-dark-secondary);
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .output-header #refresh-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        .output-header #refresh-btn:hover {
+            color: var(--text-primary);
+        }
+        
+        #output-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+            flex-grow: 1;
+        }
+        
+        /* Footer */
+        .lab-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background-color: var(--bg-dark-secondary);
+            border-top: 2px solid var(--border-color);
+            flex-shrink: 0;
+        }
+        .exercise-status { display: flex; align-items: center; gap: 1rem; }
+        .exercise-status i { font-size: 1.5rem; }
+        .exercise-info strong { display: block; }
+        .exercise-info span { color: var(--text-secondary); font-size: 0.9rem; }
+        .exercise-info .done { color: var(--green); font-weight: bold; }
+        .nav-buttons .pixel-btn { padding: 0.75rem 2rem; font-size: 1rem; }
+        .pixel-btn {
+            font-family: 'Press Start 2P', cursive;
+            text-decoration: none;
+            cursor: pointer;
+            border: 4px solid;
+            position: relative;
+            top: 0;
+            transition: all 0.1s ease-in-out;
+        }
+        .pixel-btn:active { top: 6px; box-shadow: none; }
+        .pixel-btn.yellow { background-color: var(--yellow); color: var(--bg-dark-primary); border-color: var(--pixel-yellow-border); box-shadow: 0 6px 0 0 var(--pixel-yellow-shadow); }
+        .pixel-btn.gray { background-color: #4b5563; color: var(--text-secondary); border-color: #1f2937; box-shadow: 0 6px 0 0 #111827; }
+    </style>
+</head>
+<body>
+
+    <header class="lab-header">
+        <div class="brand">Coding Learning</div>
+        <div class="breadcrumb">HTML / Elements</div>
+        <div class="progress-bar-container">
+            <div class="progress-bar"><div class="progress-bar-fill" id="progress-fill"></div></div>
+            <span class="progress-percent" id="progress-percent">14%</span>
+        </div>
+    </header>
+
+    <main class="lab-main">
+        <div class="panel panel-instructions">
+            <div class="exercise-header">
+                <h1>01. Shooting Star</h1>
+            </div>
+            <h2>What is HTML?</h2>
+            <p>Welcome to The Origins Trilogy! The beginning of your web development journey.</p>
+            <p>The language we are learning is <code>HTML</code>, or HyperText Markup Language. It was created by a developer named Tim Berners-Lee in 1991.</p>
+            <p>As the name suggests, HTML is a markup language. It marks up every piece of content on the page to tell the browser what it is.</p>
+            <h2>Instructions</h2>
+            <p>To complete this first exercise, create an <code>&lt;h1&gt;</code> element with the text "Hello World" inside it. Type your code in the editor in the middle.</p>
+        </div>
+
+        <div class="panel panel-editor">
+            <div class="editor-header">
+                <i class="fa-brands fa-html5"></i>
+                <span>index.html</span>
+            </div>
+            <!-- [UPDATED] Editor Area with line numbers -->
+            <div class="editor-area">
+                <div id="line-numbers"></div>
+                <textarea id="code-editor" spellcheck="false"><!-- Write code below ❤️ --></textarea>
+            </div>
+            <div class="editor-controls">
+                <button class="editor-btn btn-run" id="run-btn">Run</button>
+                <button class="editor-btn btn-submit" id="submit-btn">Submit Answer</button>
+            </div>
+        </div>
+
+        <div class="panel panel-output">
+             <!-- [NEW] Output Header -->
+            <div class="output-header">
+                <span>index.html</span>
+                <button id="refresh-btn" title="Refresh Output"><i class="fa-solid fa-arrows-rotate"></i></button>
+            </div>
+            <iframe id="output-frame"></iframe>
+        </div>
+    </main>
+
+    <footer class="lab-footer">
+        <div class="exercise-status">
+            <i class="fa-solid fa-bars"></i>
+            <div class="exercise-info">
+                <strong>Shooting Star</strong>
+                <span>Exercise <span id="current-exercise">1</span>/<span id="total-exercises">7</span> <span class="done">DONE!</span></span>
+            </div>
+        </div>
+        <div class="nav-buttons">
+            <a href="#" class="pixel-btn gray">Back</a>
+            <a href="#" class="pixel-btn yellow">Next</a>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const codeEditor = document.getElementById('code-editor');
+            const outputFrame = document.getElementById('output-frame');
+            const runBtn = document.getElementById('run-btn');
+            const submitBtn = document.getElementById('submit-btn');
+            const refreshBtn = document.getElementById('refresh-btn');
+            const lineNumbers = document.getElementById('line-numbers');
+
+            const commentText = '<!-- Write code below ❤️ -->';
+
+            const exercises = [
+                { id: 1, name: "Shooting Star", total: 7, solution: "<h1>helloworld</h1>" },
+            ];
+            let currentExercise = exercises[0];
+
+            function loadExercise(exercise) {
+                document.getElementById('current-exercise').textContent = exercise.id;
+                document.getElementById('total-exercises').textContent = exercise.total;
+                const progress = (exercise.id / exercise.total) * 100;
+                document.getElementById('progress-fill').style.width = `${progress}%`;
+                document.getElementById('progress-percent').textContent = `${Math.round(progress)}%`;
+            }
+
+            // [NEW] Line Number Logic
+            function updateLineNumbers() {
+                const lines = codeEditor.value.split('\n').length;
+                lineNumbers.innerHTML = Array.from({ length: lines }, (_, i) => `<div>${i + 1}</div>`).join('');
+                lineNumbers.scrollTop = codeEditor.scrollTop;
+            }
+
+            // [UPDATED] Smarter Validation
+            function validateCode(userInput) {
+                const userCodeOnly = userInput.replace(commentText, '');
+                const simplifiedInput = userCodeOnly.replace(/\s+/g, '').toLowerCase();
+                const simplifiedSolution = currentExercise.solution;
+                return simplifiedInput === simplifiedSolution;
+            }
+
+            function runCode() {
+                const userInput = codeEditor.value;
+                const frameDoc = outputFrame.contentWindow.document;
+
+                if (validateCode(userInput)) {
+                    frameDoc.open();
+                    frameDoc.write(userInput.replace(commentText, ''));
+                    frameDoc.close();
+                } else {
+                    frameDoc.open();
+                    frameDoc.write('<p style="font-family: sans-serif; color: red;">Code is not correct. Please follow the instructions.</p>');
+                    frameDoc.close();
+                }
+            }
+            
+            function submitAnswer() {
+                if (validateCode(codeEditor.value)) {
+                    alert("Correct! Well done. Moving to the next exercise.");
+                } else {
+                    alert("Not quite right. Try running your code and checking the output against the instructions.");
+                }
+            }
+
+            // --- Event Listeners ---
+            runBtn.addEventListener('click', runCode);
+            submitBtn.addEventListener('click', submitAnswer);
+            refreshBtn.addEventListener('click', runCode); // Refresh button also runs the code
+            codeEditor.addEventListener('input', updateLineNumbers);
+            codeEditor.addEventListener('scroll', () => {
+                lineNumbers.scrollTop = codeEditor.scrollTop;
+            });
+
+
+            // --- Initial Load ---
+            loadExercise(currentExercise);
+            updateLineNumbers(); // Initial line number setup
+        });
+    </script>
+</body>
+</html>
+
