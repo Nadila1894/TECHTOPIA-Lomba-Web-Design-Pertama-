@@ -23,13 +23,7 @@
             --pixel-yellow-border: #c58d0d;
             --pixel-yellow-shadow: #946300;
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             background-color: var(--bg-dark-primary);
             color: var(--text-primary);
@@ -39,277 +33,132 @@
             height: 100vh;
             overflow: hidden;
         }
-
-        /* Header */
         .lab-header {
-            display: flex;
-            align-items: center;
-            padding: 1rem 2rem;
-            background-color: var(--bg-dark-secondary);
-            border-bottom: 2px solid var(--border-color);
-            flex-shrink: 0;
+            display: flex; align-items: center; padding: 1rem 2rem; background-color: var(--bg-dark-secondary); border-bottom: 2px solid var(--border-color); flex-shrink: 0;
         }
-
         .lab-header .brand {
-            font-family: 'Press Start 2P', cursive;
-            font-size: 1.2rem;
-            color: var(--yellow);
+            font-family: 'Press Start 2P', cursive; font-size: 1.2rem; color: var(--yellow);
         }
-
         .lab-header .breadcrumb {
-            margin-left: 2rem;
-            color: var(--text-secondary);
+            margin-left: 2rem; color: var(--text-secondary);
         }
-
         .lab-header .progress-bar-container {
-            display: flex;
-            align-items: center;
-            margin-left: 1rem;
-            flex-grow: 1;
-            max-width: 200px;
+            display: flex; align-items: center; margin-left: 1rem; flex-grow: 1; max-width: 200px;
         }
-
         .lab-header .progress-bar {
-            width: 100%;
-            height: 10px;
-            background-color: var(--bg-editor);
-            border-radius: 5px;
-            overflow: hidden;
+            width: 100%; height: 10px; background-color: var(--bg-editor); border-radius: 5px; overflow: hidden;
         }
-
         .lab-header .progress-bar-fill {
-            width: 14%;
-            height: 100%;
-            background-color: var(--green);
-            border-radius: 5px;
+            width: 14%; height: 100%; background-color: var(--green); border-radius: 5px; transition: width 0.3s ease;
         }
-        
         .lab-header .progress-percent {
-            margin-left: 0.75rem;
-            font-size: 0.9rem;
-            font-weight: bold;
+            margin-left: 0.75rem; font-size: 0.9rem; font-weight: bold;
         }
-
-        /* Main Content Area */
         .lab-main {
-            display: grid;
-            grid-template-columns: 1fr 1.2fr 1fr;
-            height: calc(100vh - 120px);
-            gap: 2px;
-            background-color: var(--border-color);
-            padding: 2px;
+            display: grid; grid-template-columns: 1fr 1.2fr 1fr; height: calc(100vh - 120px); gap: 2px; background-color: var(--border-color); padding: 2px;
         }
-
         .panel {
-            background-color: var(--bg-dark-secondary);
-            padding: 1.5rem;
-            overflow-y: auto;
+            background-color: var(--bg-dark-secondary); padding: 1.5rem; overflow-y: auto;
         }
-
-        /* Panel Kiri: Materi */
         .panel-instructions h1 {
-            font-family: 'Press Start 2P', cursive;
-            font-size: 1.8rem;
-            margin-bottom: 2rem;
-            line-height: 1.4;
+            font-family: 'Press Start 2P', cursive; font-size: 1.8rem; margin-bottom: 2rem; line-height: 1.4;
         }
-
         .panel-instructions h2 {
-            font-family: 'Press Start 2P', cursive;
-            font-size: 1.2rem;
-            color: var(--yellow);
-            margin-bottom: 1rem;
-            margin-top: 2rem;
+            font-family: 'Press Start 2P', cursive; font-size: 1.2rem; color: var(--yellow); margin-bottom: 1rem; margin-top: 2rem;
         }
-        
         .panel-instructions p {
-            color: var(--text-secondary);
-            line-height: 1.6;
-            margin-bottom: 1rem;
+            color: var(--text-secondary); line-height: 1.6; margin-bottom: 1rem;
         }
-        
         .panel-instructions code {
-            background-color: var(--bg-editor);
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: bold;
+            background-color: var(--bg-editor); padding: 2px 6px; border-radius: 4px; font-weight: bold;
         }
-
-        /* Panel Tengah: Editor Kode */
         .panel-editor {
-            display: flex;
-            flex-direction: column;
-            background-color: var(--bg-editor);
-            padding: 0;
+            display: flex; flex-direction: column; background-color: var(--bg-editor); padding: 0;
         }
-
         .editor-header {
-            padding: 0.75rem 1.5rem;
-            background-color: var(--bg-dark-secondary);
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            padding: 0.75rem 1.5rem; background-color: var(--bg-dark-secondary); font-weight: bold; display: flex; align-items: center; gap: 0.5rem;
         }
-        
-        .editor-header i {
-            color: #ef4444;
-        }
-
-        /* [NEW] Editor with Line Numbers */
-        .editor-area {
-            display: flex;
-            flex-grow: 1;
-            position: relative;
-        }
-
+        .editor-header i { color: #ef4444; }
+        .editor-area { display: flex; flex-grow: 1; position: relative; }
         #line-numbers {
-            padding: 1rem 0.75rem 1rem 1.5rem;
-            font-size: 1rem;
-            color: var(--text-secondary);
-            text-align: right;
-            user-select: none;
-            line-height: 1.5;
+            padding: 1rem 0.75rem 1rem 1.5rem; font-size: 1rem; color: var(--text-secondary); text-align: right; user-select: none; line-height: 1.5;
         }
-        
         #code-editor {
-            flex-grow: 1;
-            width: 100%;
-            background-color: transparent;
-            border: none;
-            color: var(--text-primary);
-            font-family: 'Source Code Pro', monospace;
-            font-size: 1rem;
-            padding: 1rem;
-            resize: none;
-            line-height: 1.5;
+            flex-grow: 1; width: 100%; background-color: transparent; border: none; color: var(--text-primary); font-family: 'Source Code Pro', monospace; font-size: 1rem; padding: 1rem; resize: none; line-height: 1.5;
         }
-        
-        #code-editor:focus {
-            outline: none;
-        }
-
+        #code-editor:focus { outline: none; }
         .editor-controls {
-            padding: 1rem 1.5rem;
-            background-color: var(--bg-dark-secondary);
-            display: flex;
-            gap: 1rem;
+            padding: 1rem 1.5rem; background-color: var(--bg-dark-secondary); display: flex; gap: 1rem;
         }
-
         .editor-btn {
-            font-family: 'Press Start 2P', cursive;
-            padding: 0.75rem 1.5rem;
-            font-size: 0.9rem;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background-color 0.2s;
+            font-family: 'Press Start 2P', cursive; padding: 0.75rem 1.5rem; font-size: 0.9rem; border: none; border-radius: 6px; cursor: pointer; transition: background-color 0.2s;
         }
-        
         .btn-run { background-color: #2563eb; color: white; }
         .btn-run:hover { background-color: #3b82f6; }
         .btn-submit { background-color: transparent; color: var(--text-secondary); border: 2px solid var(--border-color); }
         .btn-submit:hover { background-color: var(--border-color); color: var(--text-primary); }
-
-        /* Panel Kanan: Output */
         .panel-output {
-            padding: 0;
-            background-color: var(--text-primary);
-            display: flex;
-            flex-direction: column;
+            padding: 0; background-color: var(--text-primary); display: flex; flex-direction: column;
         }
-
-        /* [NEW] Output Header */
         .output-header {
-            padding: 0.75rem 1.5rem;
-            background-color: var(--bg-dark-secondary);
-            font-weight: bold;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            padding: 0.75rem 1.5rem; background-color: var(--bg-dark-secondary); font-weight: bold; display: flex; justify-content: space-between; align-items: center;
         }
-
         .output-header #refresh-btn {
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            cursor: pointer;
-            font-size: 1rem;
+            background: none; border: none; color: var(--text-secondary); cursor: pointer; font-size: 1rem;
         }
-        .output-header #refresh-btn:hover {
-            color: var(--text-primary);
-        }
-        
+        .output-header #refresh-btn:hover { color: var(--text-primary); }
         #output-frame {
-            width: 100%;
-            height: 100%;
-            border: none;
-            flex-grow: 1;
+            width: 100%; height: 100%; border: none; flex-grow: 1;
         }
-        
-        /* Footer */
         .lab-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 2rem;
-            background-color: var(--bg-dark-secondary);
-            border-top: 2px solid var(--border-color);
-            flex-shrink: 0;
+            display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; background-color: var(--bg-dark-secondary); border-top: 2px solid var(--border-color); flex-shrink: 0;
         }
-        .exercise-status { display: flex; align-items: center; gap: 1rem; }
-        .exercise-status i { font-size: 1.5rem; }
-        .exercise-info strong { display: block; }
-        .exercise-info span { color: var(--text-secondary); font-size: 0.9rem; }
-        .exercise-info .done { color: var(--green); font-weight: bold; }
+        .system-log {
+            font-family: 'Source Code Pro', monospace; color: var(--text-secondary); font-size: 0.9rem;
+        }
+        .system-log .cursor {
+            display: inline-block; background-color: var(--green); margin-left: 5px; width: 10px; height: 1em; animation: blink 1s infinite; vertical-align: middle;
+        }
+        @keyframes blink { 0%, 49% { opacity: 1; } 50%, 99% { opacity: 0; } 100% { opacity: 1; } }
         .nav-buttons .pixel-btn { padding: 0.75rem 2rem; font-size: 1rem; }
         .pixel-btn {
-            font-family: 'Press Start 2P', cursive;
-            text-decoration: none;
-            cursor: pointer;
-            border: 4px solid;
-            position: relative;
-            top: 0;
-            transition: all 0.1s ease-in-out;
+            font-family: 'Press Start 2P', cursive; text-decoration: none; cursor: pointer; border: 4px solid; position: relative; top: 0; transition: all 0.1s ease-in-out;
         }
         .pixel-btn:active { top: 6px; box-shadow: none; }
-        .pixel-btn.yellow { background-color: var(--yellow); color: var(--bg-dark-primary); border-color: var(--pixel-yellow-border); box-shadow: 0 6px 0 0 var(--pixel-yellow-shadow); }
+        .pixel-btn.yellow {
+            background-color: var(--yellow); color: var(--bg-dark-primary); border-color: var(--pixel-yellow-border); box-shadow: 0 6px 0 0 var(--pixel-yellow-shadow);
+        }
         .pixel-btn.gray { background-color: #4b5563; color: var(--text-secondary); border-color: #1f2937; box-shadow: 0 6px 0 0 #111827; }
+        .pixel-btn:disabled {
+            background-color: #374151; color: #6b7280; border-color: #1f2937; box-shadow: 0 6px 0 0 #111827; cursor: not-allowed; top: 0;
+        }
+        .pixel-btn:disabled:active { top: 0; }
     </style>
 </head>
 <body>
 
     <header class="lab-header">
         <div class="brand">Coding Learning</div>
-        <div class="breadcrumb">HTML / Elements</div>
+        <div class="breadcrumb" id="breadcrumb">HTML / Elements</div>
         <div class="progress-bar-container">
             <div class="progress-bar"><div class="progress-bar-fill" id="progress-fill"></div></div>
-            <span class="progress-percent" id="progress-percent">14%</span>
+            <span class="progress-percent" id="progress-percent">0%</span>
         </div>
     </header>
 
     <main class="lab-main">
-        <div class="panel panel-instructions">
-            <div class="exercise-header">
-                <h1>01. Shooting Star</h1>
-            </div>
-            <h2>What is HTML?</h2>
-            <p>Welcome to The Origins Trilogy! The beginning of your web development journey.</p>
-            <p>The language we are learning is <code>HTML</code>, or HyperText Markup Language. It was created by a developer named Tim Berners-Lee in 1991.</p>
-            <p>As the name suggests, HTML is a markup language. It marks up every piece of content on the page to tell the browser what it is.</p>
-            <h2>Instructions</h2>
-            <p>To complete this first exercise, create an <code>&lt;h1&gt;</code> element with the text "Hello World" inside it. Type your code in the editor in the middle.</p>
+        <div class="panel panel-instructions" id="instructions-panel">
+            <!-- Content will be dynamically loaded by JavaScript -->
         </div>
 
         <div class="panel panel-editor">
             <div class="editor-header">
                 <i class="fa-brands fa-html5"></i>
-                <span>index.html</span>
+                <span>star.html</span>
             </div>
-            <!-- [UPDATED] Editor Area with line numbers -->
             <div class="editor-area">
                 <div id="line-numbers"></div>
-                <textarea id="code-editor" spellcheck="false"><!-- Write code below ❤️ --></textarea>
+                <textarea id="code-editor" spellcheck="false"></textarea>
             </div>
             <div class="editor-controls">
                 <button class="editor-btn btn-run" id="run-btn">Run</button>
@@ -318,7 +167,6 @@
         </div>
 
         <div class="panel panel-output">
-             <!-- [NEW] Output Header -->
             <div class="output-header">
                 <span>index.html</span>
                 <button id="refresh-btn" title="Refresh Output"><i class="fa-solid fa-arrows-rotate"></i></button>
@@ -328,94 +176,216 @@
     </main>
 
     <footer class="lab-footer">
-        <div class="exercise-status">
-            <i class="fa-solid fa-bars"></i>
-            <div class="exercise-info">
-                <strong>Shooting Star</strong>
-                <span>Exercise <span id="current-exercise">1</span>/<span id="total-exercises">7</span> <span class="done">DONE!</span></span>
-            </div>
+        <div class="system-log">
+            <span id="log-message">[System Log]: Initializing...</span><span class="cursor"></span>
         </div>
         <div class="nav-buttons">
-            <a href="#" class="pixel-btn gray">Back</a>
-            <a href="#" class="pixel-btn yellow">Next</a>
+            <button class="pixel-btn gray" id="back-btn">Back</button>
+            <button class="pixel-btn yellow" id="next-btn">Next</button>
         </div>
     </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // UI Elements
             const codeEditor = document.getElementById('code-editor');
             const outputFrame = document.getElementById('output-frame');
             const runBtn = document.getElementById('run-btn');
             const submitBtn = document.getElementById('submit-btn');
             const refreshBtn = document.getElementById('refresh-btn');
             const lineNumbers = document.getElementById('line-numbers');
-
+            const instructionsPanel = document.getElementById('instructions-panel');
+            const breadcrumb = document.getElementById('breadcrumb');
+            const progressFill = document.getElementById('progress-fill');
+            const progressPercent = document.getElementById('progress-percent');
+            const logMessage = document.getElementById('log-message');
+            const nextBtn = document.getElementById('next-btn');
+            const backBtn = document.getElementById('back-btn');
+            
             const commentText = '<!-- Write code below ❤️ -->';
 
+            // [UPDATED] Exercise Data Store with Exercise 7
             const exercises = [
-                { id: 1, name: "Shooting Star", total: 7, solution: "<h1>helloworld</h1>" },
+                {
+                    id: 1, name: "Shooting Star", total: 7, isCompleted: false, userCode: "",
+                    solution: [{ tag: 'h1', count: 1 }],
+                    content: {
+                        title: "01. Shooting Star", h2: "What is HTML?",
+                        paragraphs: ["Welcome to The Origins Trilogy! The beginning of your web development journey.","The language we are learning is <code>HTML</code>, or HyperText Markup Language. It was created by a developer named Tim Berners-Lee in 1991.","As the name suggests, HTML is a markup language. It marks up every piece of content on the page to tell the browser what it is."],
+                        instructions: "To complete this first exercise, create an <code>&lt;h1&gt;</code> element. The text inside doesn't matter for now."
+                    }
+                },
+                {
+                    id: 2, name: "Elemental", total: 7, isCompleted: false, userCode: "",
+                    solution: [{ tag: 'h2', count: 1 }, { tag: 'p', count: 1 }],
+                    content: {
+                        title: "02. Elemental", h2: "Headings & Paragraphs",
+                        paragraphs: ["Beyond the main title, web pages need structure. <code>&lt;h2&gt;</code> tags are used for subheadings, and <code>&lt;p&gt;</code> tags are for regular paragraphs of text.","These tags help organize content, making it easier for both users and search engines to understand your page."],
+                        instructions: "Create an <code>&lt;h2&gt;</code> tag and, below it, a <code>&lt;p&gt;</code> tag."
+                    }
+                },
+                {
+                    id: 3, name: "Newspaper", total: 7, isCompleted: false, userCode: "",
+                    solution: [{ tag: 'p', count: 3 }],
+                     content: {
+                        title: "03. Newspaper", h2: "Multiple Paragraphs",
+                        paragraphs: ["Just like in a newspaper, web content is often broken into multiple paragraphs for readability.","Each <code>&lt;p&gt;</code> tag creates a new block of text, with space automatically added between them."],
+                        instructions: "Create three separate <code>&lt;p&gt;</code> tags in the editor."
+                    }
+                },
+                {
+                    id: 4, name: "Corporate Talk", total: 7, isCompleted: false, userCode: "",
+                    solution: [{ tag: 'p', count: 1 }, { tag: 'em', count: 1 }, { tag: 'strong', count: 1 }],
+                     content: {
+                        title: "04. Corporate Talk", h2: "Emphasis & Importance",
+                        paragraphs: ["Sometimes you need to make text stand out. The <code>&lt;em&gt;</code> tag is used for emphasis (usually shown as italics), and the <code>&lt;strong&gt;</code> tag is for important text (usually shown as bold)."],
+                        instructions: "Create a paragraph that contains both an <code>&lt;em&gt;</code> tag and a <code>&lt;strong&gt;</code> tag inside it."
+                    }
+                },
+                 {
+                    id: 5, name: "Sous-Chef", total: 7, isCompleted: false, userCode: "",
+                    solution: [{ tag: 'ul', count: 1 }, { tag: 'li', count: 3 }],
+                     content: {
+                        title: "05. Sous-Chef", h2: "Unordered Lists",
+                        paragraphs: ["Lists are perfect for grouping related items. An unordered list, created with <code>&lt;ul&gt;</code>, is a bulleted list.","Each item within the list is created with a <code>&lt;li&gt;</code> (list item) tag."],
+                        instructions: "Create a <code>&lt;ul&gt;</code> that contains at least three <code>&lt;li&gt;</code> tags inside it."
+                    }
+                },
+                {
+                    id: 6, name: "Lost Pet", total: 7, isCompleted: false, userCode: "",
+                    solution: [{ tag: 'img', count: 1 }],
+                    content: {
+                        title: "06. Lost Pet", h2: "Images",
+                        paragraphs: ["Images bring pages to life. The <code>&lt;img&gt;</code> tag is used to display images. It's a self-closing tag.","It requires two main attributes: <code>src</code> (the source URL of the image) and <code>alt</code> (alternative text for screen readers or if the image fails to load)."],
+                        instructions: "Add an <code>&lt;img&gt;</code> tag to the editor. Make sure it has both a <code>src</code> and an <code>alt</code> attribute."
+                    }
+                },
+                 {
+                    id: 7, name: "Final Element", total: 7, isCompleted: false, userCode: "",
+                    solution: [{ tag: 'a', count: 1 }],
+                    content: {
+                        title: "07. Final Element", h2: "Links",
+                        paragraphs: ["The final essential element is the anchor tag, <code>&lt;a&gt;</code>, which creates hyperlinks.", "It uses the <code>href</code> attribute to define the link's destination. Without links, there would be no 'web' in World Wide Web!"],
+                        instructions: "Create a link by adding an <code>&lt;a&gt;</code> tag with an <code>href</code> attribute."
+                    }
+                }
             ];
-            let currentExercise = exercises[0];
+            let currentExerciseIndex = 0;
 
-            function loadExercise(exercise) {
-                document.getElementById('current-exercise').textContent = exercise.id;
-                document.getElementById('total-exercises').textContent = exercise.total;
-                const progress = (exercise.id / exercise.total) * 100;
-                document.getElementById('progress-fill').style.width = `${progress}%`;
-                document.getElementById('progress-percent').textContent = `${Math.round(progress)}%`;
+            function updateSystemLog(message) {
+                logMessage.textContent = `[System Log]: ${message}`;
             }
 
-            // [NEW] Line Number Logic
+            // [NEW] Function to calculate and update progress
+            function updateProgress() {
+                const completedCount = exercises.filter(e => e.isCompleted).length;
+                const totalCount = exercises.length;
+                const progress = totalCount > 0 ? (completedCount / totalCount) * 100 : 0;
+                
+                progressFill.style.width = `${progress}%`;
+                progressPercent.textContent = `${Math.round(progress)}%`;
+            }
+
+            function loadExercise(index) {
+                currentExerciseIndex = index;
+                const exercise = exercises[index];
+                
+                instructionsPanel.innerHTML = `<h1>${exercise.content.title}</h1><h2>${exercise.content.h2}</h2>${exercise.content.paragraphs.map(p => `<p>${p}</p>`).join('')}<h2>Instructions</h2><p>${exercise.content.instructions}</p>`;
+                
+                // Call the new progress function instead of calculating here
+                updateProgress();
+
+                codeEditor.value = exercise.userCode || commentText;
+                outputFrame.srcdoc = "";
+                updateLineNumbers();
+
+                backBtn.disabled = index === 0;
+                nextBtn.disabled = !exercise.isCompleted;
+                
+                updateSystemLog(`Loaded Exercise ${exercise.id}: ${exercise.name}.`);
+            }
+
             function updateLineNumbers() {
                 const lines = codeEditor.value.split('\n').length;
                 lineNumbers.innerHTML = Array.from({ length: lines }, (_, i) => `<div>${i + 1}</div>`).join('');
                 lineNumbers.scrollTop = codeEditor.scrollTop;
             }
-
-            // [UPDATED] Smarter Validation
+            
             function validateCode(userInput) {
-                const userCodeOnly = userInput.replace(commentText, '');
-                const simplifiedInput = userCodeOnly.replace(/\s+/g, '').toLowerCase();
-                const simplifiedSolution = currentExercise.solution;
-                return simplifiedInput === simplifiedSolution;
+                const userCodeOnly = userInput.replace(/<!--.*?-->/g, '');
+                const solutionRules = exercises[currentExerciseIndex].solution;
+
+                for (const rule of solutionRules) {
+                    const { tag, count } = rule;
+                    if (tag === 'img') {
+                         if (!/<img\s+src=".*?"\s+alt=".*?"\s*\/?>/.test(userCodeOnly)) return false;
+                         continue;
+                    }
+                     if (tag === 'a') {
+                         if (!/<a\s+href=".*?"\s*>/i.test(userCodeOnly) || !/<\/a>/.test(userCodeOnly)) return false;
+                         continue;
+                    }
+                    
+                    const openTagRegex = new RegExp(`<${tag}[^>]*>`, 'g');
+                    const closeTagRegex = new RegExp(`</${tag}>`, 'g');
+
+                    const openMatches = userCodeOnly.match(openTagRegex) || [];
+                    const closeMatches = userCodeOnly.match(closeTagRegex) || [];
+
+                    if (openMatches.length < count || closeMatches.length < count) {
+                        return false;
+                    }
+                }
+                return true;
             }
 
             function runCode() {
                 const userInput = codeEditor.value;
-                const frameDoc = outputFrame.contentWindow.document;
-
-                if (validateCode(userInput)) {
-                    frameDoc.open();
-                    frameDoc.write(userInput.replace(commentText, ''));
-                    frameDoc.close();
-                } else {
-                    frameDoc.open();
-                    frameDoc.write('<p style="font-family: sans-serif; color: red;">Code is not correct. Please follow the instructions.</p>');
-                    frameDoc.close();
-                }
+                const userCodeOnly = userInput.replace(commentText, '');
+                outputFrame.srcdoc = userCodeOnly;
+                updateSystemLog("Code executed.");
             }
             
             function submitAnswer() {
                 if (validateCode(codeEditor.value)) {
-                    alert("Correct! Well done. Moving to the next exercise.");
+                    runCode();
+                    updateSystemLog("Correct! Well done.");
+                    alert("Correct! Well done.");
+                    exercises[currentExerciseIndex].isCompleted = true;
+                    nextBtn.disabled = false;
+                    updateProgress(); // [UPDATED] Recalculate progress after completion
                 } else {
-                    alert("Not quite right. Try running your code and checking the output against the instructions.");
+                    updateSystemLog("Answer is not quite right. Try again.");
+                    alert("Not quite right. Check if you have all the required tags and attributes.");
+                }
+            }
+            
+            function navigate(direction) {
+                exercises[currentExerciseIndex].userCode = codeEditor.value;
+
+                if (direction === 'next' && currentExerciseIndex < exercises.length - 1) {
+                    loadExercise(currentExerciseIndex + 1);
+                } else if (direction === 'next') {
+                    alert("Congratulations! You've completed this section.");
+                    updateSystemLog("All exercises completed!");
+                }
+                
+                if (direction === 'back' && currentExerciseIndex > 0) {
+                    loadExercise(currentExerciseIndex - 1);
                 }
             }
 
             // --- Event Listeners ---
             runBtn.addEventListener('click', runCode);
             submitBtn.addEventListener('click', submitAnswer);
-            refreshBtn.addEventListener('click', runCode); // Refresh button also runs the code
+            refreshBtn.addEventListener('click', runCode);
+            nextBtn.addEventListener('click', () => navigate('next'));
+            backBtn.addEventListener('click', () => navigate('back'));
             codeEditor.addEventListener('input', updateLineNumbers);
-            codeEditor.addEventListener('scroll', () => {
-                lineNumbers.scrollTop = codeEditor.scrollTop;
-            });
-
+            codeEditor.addEventListener('scroll', () => { lineNumbers.scrollTop = codeEditor.scrollTop; });
 
             // --- Initial Load ---
-            loadExercise(currentExercise);
-            updateLineNumbers(); // Initial line number setup
+            loadExercise(0);
         });
     </script>
 </body>
