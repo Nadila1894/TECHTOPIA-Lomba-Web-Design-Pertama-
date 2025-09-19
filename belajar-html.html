@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Course - Coding Learn</title>
+    <!-- Font Pixel untuk judul -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <!-- Font utama  -->
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #050a26;
+            --secondery: #ffc700;
+            --latar: #0E1623;
+            --border-color: #2d3748;
+            --text-primary: #ffffff;
+            --text-secondary: #a0aec0;
+            --blue-btn: #3b82f6;
+            --blue-btn-hover: #60a5fa;
+            --pixel-border-yellow: #c58d0d; /* [DIUBAH] Warna border kuning */
+            --pixel-shadow-yellow: #946300; /* [BARU] Warna bayangan kuning */
+            --pixel-border-blue: #1e40af;  /* [DIUBAH] Warna border biru */
+            --pixel-shadow-blue: #1e3a8a;   /* [BARU] Warna bayangan biru */
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            background-color: var(--latar); 
+            color: var(--text-primary);
+            font-family: "Source Code Pro", monospace;
+        }
+        .placeholder-navbar {
+            padding: 1.5rem 2rem;
+            background-color: var(--primary);
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+        .hero-container {
+            height: 80vh;
+            width: 100%;
+            background-image: url('');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            padding: 0 10%;
+        }
+        .hero-content { max-width: 600px; }
+        .hero-tags { display: flex; gap: 1rem; margin-bottom: 1.5rem; }
+        .hero-tags span {
+            border: 1.5px solid var(--text-primary);
+            padding: 0.5rem 1rem;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+        }
+        .hero-title {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+        }
+        .hero-description {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            max-width: 500px;
+            margin-bottom: 2rem;
+        }
+        /* [UPDATED] Pixel Button Style */
+        .pixel-btn {
+            font-family: 'Press Start 2P', cursive;
+            text-decoration: none;
+            cursor: pointer;
+            border: 4px solid;
+            border-radius: 8px;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            position: relative; /* Diperlukan untuk efek bayangan */
+            top: 0;
+            transition: all 0.1s ease-in-out;
+        }
+        .pixel-btn:active {
+            top: 6px; /* Bergerak ke bawah saat ditekan */
+            box-shadow: none; /* Menghilangkan bayangan saat ditekan */
+        }
+        .pixel-btn.yellow {
+            background-color: var(--secondery);
+            color: var(--primary);
+            border-color: var(--pixel-border-yellow);
+            box-shadow: 0 6px 0 0 var(--pixel-shadow-yellow); /* Bayangan tebal di bawah */
+        }
+        .pixel-btn.blue {
+            background-color: var(--blue-btn);
+            color: var(--text-primary);
+            border-color: var(--pixel-border-blue);
+            box-shadow: 0 6px 0 0 var(--pixel-shadow-blue); /* Bayangan tebal di bawah */
+        }
+        .progress-section {
+            display: flex;
+            justify-content: space-between;
+            background-color: #121C2D;
+            padding: 3rem 10%;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        .chapters-container {
+            flex: 3;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .chapter-card {
+            display: flex;
+            flex-direction: column;
+            background-color: var(--latar);
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .chapter-card:hover {
+            background-color: #1a263a;
+        }
+        .chapter-header {
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+        .chapter-number {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 2.5rem;
+            color: var(--text-secondary);
+            margin-right: 2rem;
+        }
+        .chapter-title {
+            font-size: 1.5rem;
+            font-weight: 500;
+            flex-grow: 1;
+        }
+        .chapter-toggle-icon {
+            color: var(--text-secondary);
+            transition: transform 0.3s ease;
+            font-size: 1.5rem;
+        }
+        .chapter-card.active .chapter-toggle-icon {
+            transform: rotate(180deg);
+        }
+        .exercises-list {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out, padding-top 0.4s ease-out;
+        }
+        .chapter-card.active .exercises-list {
+            max-height: 1000px;
+            padding-top: 1.5rem;
+            transition: max-height 0.4s ease-in, padding-top 0.4s ease-in;
+        }
+        .chapter-description {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            padding-left: calc(2.5rem + 2rem);
+        }
+        .exercise-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            background-color: #121C2D;
+            margin-bottom: 0.5rem;
+            border-radius: 8px;
+            margin-left: calc(2.5rem + 2rem);
+        }
+        .exercise-item > span:first-of-type {
+            color: var(--text-secondary);
+            width: 100px;
+        }
+        .exercise-item > span:nth-of-type(2) {
+            flex-grow: 1;
+        }
+        .status-container {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+        }
+        .status-completed, .status-available, .status-locked { display: none; }
+        .status-completed { align-items: center; }
+        .exercise-item[data-status="completed"] .status-completed { display: flex; }
+        .exercise-item[data-status="available"] .status-available { display: block; }
+        .exercise-item[data-status="locked"] .status-locked { display: block; }
+        .status-badge { padding: 0.5rem 1.5rem; border-radius: 5px; font-weight: bold; font-size: 0.9rem; text-align: center; }
+        .status-badge.done { background: none; border: 2px solid var(--text-primary); color: var(--text-primary); }
+        .status-badge.pending { background: #334155; color: #94a3b8; }
+        .status-badge.start {
+            font-family: 'Press Start 2P', cursive;
+            padding: 0.75rem 1.5rem;
+            font-size: 0.8rem;
+            border-width: 2px; /* Menyesuaikan ketebalan border untuk tombol kecil */
+            border-bottom-width: 4px;
+        }
+        .status-badge.start:active {
+            transform: translateY(2px);
+            border-bottom-width: 2px;
+        }
+        .xp-badge { background-color: var(--secondery); color: var(--primary); padding: 0.5rem 1rem; font-weight: bold; border-radius: 5px; margin-left: 1rem; font-size: 0.9rem; }
+        .user-progress-container { flex: 1; min-width: 280px; }
+        .user-profile-card { background-color: var(--latar); border: 1px solid var(--border-color); padding: 1.5rem; margin-bottom: 1.5rem; text-align: center; }
+        .user-name { font-size: 1.5rem; font-weight: bold; margin-bottom: 0.5rem; }
+        .user-level { color: var(--text-secondary); margin-bottom: 1rem; }
+        .view-profile-btn { color: var(--secondery); text-decoration: none; }
+        .progress-details-card h4 {text-align: center;}
+        .progress-details-card { background-color: var(--latar); border: 1px solid var(--border-color); padding: 1.5rem; }
+        .progress-item { display: flex; justify-content: space-between; margin-bottom: 1rem; font-size: 0.9rem; }
+        .progress-label { color: var(--text-secondary); }
+        .progress-value { font-weight: bold; }
+        .club-tag { background-color: #3b82f6; color: white; padding: 2px 6px; font-size: 0.7rem; border-radius: 4px; margin-left: 0.5rem; }
+    </style>
+</head>
+<body>
+    <div class="placeholder-navbar">
+        <!-- Lom Kepanggil (NAVBAR) -->
+    </div>
+
+    <main>
+        <section class="hero-container">
+            <div class="hero-content">
+                <div class="hero-tags">
+                    <span>BEGINNER</span><span>COURSE</span>
+                </div>
+                <h1 class="hero-title">HTML</h1>
+                <p class="hero-description">Create your first website with HTML, the building blocks of the web and dive into the world of web development.</p>
+                <a href="#" class="hero-button pixel-btn yellow">Start Learning</a>
+            </div>
+        </section>
+
+        <section class="progress-section">
+            <div class="chapters-container">
+                <!-- Chapter 1: Elements -->
+                <div class="chapter-card">
+                    <div class="chapter-header">
+    <span class="chapter-number">1</span><h2 class="chapter-title">Elemen HTML</h2><i class="fas fa-chevron-down chapter-toggle-icon"></i>
+</div>
+                    <div class="exercises-list">
+                        <p class="chapter-description">Create your first web page by learning about basic elements and tags.</p>
+                        <div class="exercise-item" data-status="locked"><span>Exercise 1</span><span>Shooting Star</span><div class="status-container"><div class="status-completed"><div class="status-badge done">Done!</div><div class="xp-badge">+10XP</div></div><div class="status-available"><a href="lab-html.html" class="status-badge start pixel-btn blue">Start</a></div><div class="status-locked"><div class="status-badge pending">???</div></div></div></div>
+                        <div class="exercise-item" data-status="locked"><span>Exercise 2</span><span>Elemental</span><div class="status-container"><div class="status-completed"><div class="status-badge done">Done!</div><div class="xp-badge">+10XP</div></div><div class="status-available"><a href="lab-html.html" class="status-badge start pixel-btn blue">Start</a></div><div class="status-locked"><div class="status-badge pending">???</div></div></div></div>
+                        <div class="exercise-item" data-status="locked"><span>Exercise 3</span><span>Newspaper</span><div class="status-container"><div class="status-completed"><div class="status-badge done">Done!</div><div class="xp-badge">+10XP</div></div><div class="status-available"><a href="lab-html.html" class="status-badge start pixel-btn blue">Start</a></div><div class="status-locked"><div class="status-badge pending">???</div></div></div></div>
+                        <div class="exercise-item" data-status="locked"><span>Exercise 4</span><span>Corporate Talk</span><div class="status-container"><div class="status-completed"><div class="status-badge done">Done!</div><div class="xp-badge">+10XP</div></div><div class="status-available"><a href="lab-html.html" class="status-badge start pixel-btn blue">Start</a></div><div class="status-locked"><div class="status-badge pending">???</div></div></div></div>
+                        <div class="exercise-item" data-status="locked"><span>Exercise 5</span><span>Sous-Chef</span><div class="status-container"><div class="status-completed"><div class="status-badge done">Done!</div><div class="xp-badge">+10XP</div></div><div class="status-available"><a href="lab-html.html" class="status-badge start pixel-btn blue">Start</a></div><div class="status-locked"><div class="status-badge pending">???</div></div></div></div>
+                        <div class="exercise-item" data-status="locked"><span>Exercise 6</span><span>Lost Pet</span><div class="status-container"><div class="status-completed"><div class="status-badge done">Done!</div><div class="xp-badge">+10XP</div></div><div class="status-available"><a href="lab-html.html" class="status-badge start pixel-btn blue">Start</a></div><div class="status-locked"><div class="status-badge pending">???</div></div></div></div>
+                        <div class="exercise-item" data-status="locked"><span>Exercise 7</span><span>Final Element</span><div class="status-container"><div class="status-completed"><div class="status-badge done">Done!</div><div class="xp-badge">+10XP</div></div><div class="status-available"><a href="lab-html.html" class="status-badge start pixel-btn blue">Start</a></div><div class="status-locked"><div class="status-badge pending">???</div></div></div></div>
+                    </div>
+                </div>
+                <!-- CHAPTER 2 (structured ) -->
+                <div class="chapter-card">
+                   <div class="chapter-header"><span class="chapter-number">2</span><h2 class="chapter-title">Struktur</h2><i class="fas fa-chevron-down chapter-toggle-icon"></i></div>
+                     <div class="exercises-list">
+                        <p class="chapter-description">Learn how to structure your HTML document properly.</p>
+                        <div class="exercise-item" data-status="locked"><span>Exercise 1</span><span>jjjjj</span><div class="status-container"><div class="status-completed"><div class="status-badge done">Done!</div><div class="xp-badge">+10XP</div></div><div class="status-available"><a href="lab-html.html" class="status-badge start pixel-btn blue">Start</a></div><div class="status-locked"><div class="status-badge pending">???</div></div></div></div>
+                        <div class="exercise-item" data-status="locked"><span>Exercise 2</span><span>Elemental</span><div class="status-container"><div class="status-completed"><div class="status-badge done">Done!</div><div class="xp-badge">+10XP</div></div><div class="status-available"><a href="lab-html.html" class="status-badge start pixel-btn blue">Start</a></div><div class="status-locked"><div class="status-badge pending">???</div></div></div></div>
+                        <div class="exercise-item" data-status="locked"><span>Exercise 3</span><span>Newspaper</span><div class="status-container"><div class="status-completed"><div class="status-badge done">Done!</div><div class="xp-badge">+10XP</div></div><div class="status-available"><a href="lab-html.html" class="status-badge start pixel-btn blue">Start</a></div><div class="status-locked"><div class="status-badge pending">???</div></div></div></div>
+                        <div class="exercise-item" data-status="locked"><span>Exercise 4</span><span>Corporate Talk</span><div class="status-container"><div class="status-completed"><div class="status-badge done">Done!</div><div class="xp-badge">+10XP</div></div><div class="status-available"><a href="lab-html.html" class="status-badge start pixel-btn blue">Start</a></div><div class="status-locked"><div class="status-badge pending">???</div></div></div></div>
+                        <div class="exercise-item" data-status="locked"><span>Exercise 5</span><span>Sous-Chef</span><div class="status-container"><div class="status-completed"><div class="status-badge done">Done!</div><div class="xp-badge">+10XP</div></div><div class="status-available"><a href="lab-html.html" class="status-badge start pixel-btn blue">Start</a></div><div class="status-locked"><div class="status-badge pending">???</div></div></div></div>
+                        <div class="exercise-item" data-status="locked"><span>Exercise 6</span><span>Lost Pet</span><div class="status-container"><div class="status-completed"><div class="status-badge done">Done!</div><div class="xp-badge">+10XP</div></div><div class="status-available"><a href="lab-html.html" class="status-badge start pixel-btn blue">Start</a></div><div class="status-locked"><div class="status-badge pending">???</div></div></div></div>
+                        <div class="exercise-item" data-status="locked"><span>Exercise 7</span><span>Final Element</span><div class="status-container"><div class="status-completed"><div class="status-badge done">Done!</div><div class="xp-badge">+10XP</div></div><div class="status-available"><a href="lab-html.html" class="status-badge start pixel-btn blue">Start</a></div><div class="status-locked"><div class="status-badge pending">???</div></div></div></div>
+                        <!-- ... 4 more exercises -->
+                    </div>
+                </div>
+                <!-- CHAPTER 3 (structured the same way) -->
+                <div class="chapter-card">
+                    <div class="chapter-header"><span class="chapter-number">3</span><h2 class="chapter-title">Forms</h2><i class="fas fa-chevron-down chapter-toggle-icon"></i></div>
+                    <div class="exercises-list">
+                        <p class="chapter-description">Understand how to collect user input with forms.</p>
+                        <div class="exercise-item" data-status="locked"><span>Exercise 1</span><span>Anatomy</span><div class="status-container"><div class="status-completed"><div class="status-badge done">Done!</div><div class="xp-badge">+10XP</div></div><div class="status-available"><a href="lab-html.html" class="status-badge start pixel-btn blue">Start</a></div><div class="status-locked"><div class="status-badge pending">???</div></div></div></div>
+                        <div class="exercise-item" data-status="locked"><span>Exercise 2</span><span>Elemental</span><div class="status-container"><div class="status-completed"><div class="status-badge done">Done!</div><div class="xp-badge">+10XP</div></div><div class="status-available"><a href="lab-html.html" class="status-badge start pixel-btn blue">Start</a></div><div class="status-locked"><div class="status-badge pending">???</div></div></div></div>
+                        <div class="exercise-item" data-status="locked"><span>Exercise 3</span><span>Newspaper</span><div class="status-container"><div class="status-completed"><div class="status-badge done">Done!</div><div class="xp-badge">+10XP</div></div><div class="status-available"><a href="lab-html.html" class="status-badge start pixel-btn blue">Start</a></div><div class="status-locked"><div class="status-badge pending">???</div></div></div></div>
+                        <div class="exercise-item" data-status="locked"><span>Exercise 4</span><span>Corporate Talk</span><div class="status-container"><div class="status-completed"><div class="status-badge done">Done!</div><div class="xp-badge">+10XP</div></div><div class="status-available"><a href="lab-html.html" class="status-badge start pixel-btn blue">Start</a></div><div class="status-locked"><div class="status-badge pending">???</div></div></div></div>
+                        <div class="exercise-item" data-status="locked"><span>Exercise 5</span><span>Sous-Chef</span><div class="status-container"><div class="status-completed"><div class="status-badge done">Done!</div><div class="xp-badge">+10XP</div></div><div class="status-available"><a href="lab-html.html" class="status-badge start pixel-btn blue">Start</a></div><div class="status-locked"><div class="status-badge pending">???</div></div></div></div>
+                        <div class="exercise-item" data-status="locked"><span>Exercise 6</span><span>Lost Pet</span><div class="status-container"><div class="status-completed"><div class="status-badge done">Done!</div><div class="xp-badge">+10XP</div></div><div class="status-available"><a href="lab-html.html" class="status-badge start pixel-btn blue">Start</a></div><div class="status-locked"><div class="status-badge pending">???</div></div></div></div>
+                        <div class="exercise-item" data-status="locked"><span>Exercise 7</span><span>Final Element</span><div class="status-container"><div class="status-completed"><div class="status-badge done">Done!</div><div class="xp-badge">+10XP</div></div><div class="status-available"><a href="lab-html.html" class="status-badge start pixel-btn blue">Start</a></div><div class="status-locked"><div class="status-badge pending">???</div></div></div></div>
+                        <!-- ... 3 more exercises -->
+                    </div>
+                </div>
+                <!-- CHAPTER 4 (structured the same way) -->
+                <div class="chapter-card">
+                    <div class="chapter-header"><span class="chapter-number">4</span><h2 class="chapter-title">Semantic HTML</h2><i class="fas fa-chevron-down chapter-toggle-icon"></i></div>
+                    <div class="exercises-list">
+                        <p class="chapter-description">Write more meaningful and accessible HTML with semantic tags.</p>
+                        <div class="exercise-item" data-status="locked"><span>Exercise 1</span><span>Anatomy</span><div class="status-container"><div class="status-completed"><div class="status-badge done">Done!</div><div class="xp-badge">+10XP</div></div><div class="status-available"><a href="lab-html.html" class="status-badge start pixel-btn blue">Start</a></div><div class="status-locked"><div class="status-badge pending">???</div></div></div></div>
+                        <div class="exercise-item" data-status="locked"><span>Exercise 2</span><span>Elemental</span><div class="status-container"><div class="status-completed"><div class="status-badge done">Done!</div><div class="xp-badge">+10XP</div></div><div class="status-available"><a href="lab-html.html" class="status-badge start pixel-btn blue">Start</a></div><div class="status-locked"><div class="status-badge pending">???</div></div></div></div>
+                        <div class="exercise-item" data-status="locked"><span>Exercise 3</span><span>Newspaper</span><div class="status-container"><div class="status-completed"><div class="status-badge done">Done!</div><div class="xp-badge">+10XP</div></div><div class="status-available"><a href="lab-html.html" class="status-badge start pixel-btn blue">Start</a></div><div class="status-locked"><div class="status-badge pending">???</div></div></div></div>
+                        <div class="exercise-item" data-status="locked"><span>Exercise 4</span><span>Corporate Talk</span><div class="status-container"><div class="status-completed"><div class="status-badge done">Done!</div><div class="xp-badge">+10XP</div></div><div class="status-available"><a href="lab-html.html" class="status-badge start pixel-btn blue">Start</a></div><div class="status-locked"><div class="status-badge pending">???</div></div></div></div>
+                        <div class="exercise-item" data-status="locked"><span>Exercise 5</span><span>Sous-Chef</span><div class="status-container"><div class="status-completed"><div class="status-badge done">Done!</div><div class="xp-badge">+10XP</div></div><div class="status-available"><a href="lab-html.html" class="status-badge start pixel-btn blue">Start</a></div><div class="status-locked"><div class="status-badge pending">???</div></div></div></div>
+                        <div class="exercise-item" data-status="locked"><span>Exercise 6</span><span>Lost Pet</span><div class="status-container"><div class="status-completed"><div class="status-badge done">Done!</div><div class="xp-badge">+10XP</div></div><div class="status-available"><a href="lab-html.html" class="status-badge start pixel-btn blue">Start</a></div><div class="status-locked"><div class="status-badge pending">???</div></div></div></div>
+                        <div class="exercise-item" data-status="locked"><span>Exercise 7</span><span>Final Element</span><div class="status-container"><div class="status-completed"><div class="status-badge done">Done!</div><div class="xp-badge">+10XP</div></div><div class="status-available"><a href="lab-html.html" class="status-badge start pixel-btn blue">Start</a></div><div class="status-locked"><div class="status-badge pending">???</div></div></div></div>
+                        <!-- ... 2 more exercises -->
+                    </div>
+                </div>
+                <!-- CHAPTER 5 (structured the same way) -->
+                <div class="chapter-card">
+                    <div class="chapter-header"><span class="chapter-number">5</span><h2 class="chapter-title">Projek Sederhana</h2><i class="fas fa-chevron-down chapter-toggle-icon"></i></div>
+                    <div class="exercises-list">
+                        <p class="chapter-description">Combine all your knowledge to build a simple project from scratch.</p>
+                        <div class="exercise-item" data-status="locked"><span>Exercise 1</span><span>Anatomy</span><div class="status-container"><div class="status-completed"><div class="status-badge done">Done!</div><div class="xp-badge">+10XP</div></div><div class="status-available"><a href="lab-html.html" class="status-badge start pixel-btn blue">Start</a></div><div class="status-locked"><div class="status-badge pending">???</div></div></div></div>
+                        <div class="exercise-item" data-status="locked"><span>Exercise 2</span><span>Elemental</span><div class="status-container"><div class="status-completed"><div class="status-badge done">Done!</div><div class="xp-badge">+10XP</div></div><div class="status-available"><a href="lab-html.html" class="status-badge start pixel-btn blue">Start</a></div><div class="status-locked"><div class="status-badge pending">???</div></div></div></div>
+                        <div class="exercise-item" data-status="locked"><span>Exercise 3</span><span>Newspaper</span><div class="status-container"><div class="status-completed"><div class="status-badge done">Done!</div><div class="xp-badge">+10XP</div></div><div class="status-available"><a href="lab-html.html" class="status-badge start pixel-btn blue">Start</a></div><div class="status-locked"><div class="status-badge pending">???</div></div></div></div>
+                        <div class="exercise-item" data-status="locked"><span>Exercise 4</span><span>Corporate Talk</span><div class="status-container"><div class="status-completed"><div class="status-badge done">Done!</div><div class="xp-badge">+10XP</div></div><div class="status-available"><a href="lab-html.html" class="status-badge start pixel-btn blue">Start</a></div><div class="status-locked"><div class="status-badge pending">???</div></div></div></div>
+                        <div class="exercise-item" data-status="locked"><span>Exercise 5</span><span>Sous-Chef</span><div class="status-container"><div class="status-completed"><div class="status-badge done">Done!</div><div class="xp-badge">+10XP</div></div><div class="status-available"><a href="lab-html.html" class="status-badge start pixel-btn blue">Start</a></div><div class="status-locked"><div class="status-badge pending">???</div></div></div></div>
+                        <div class="exercise-item" data-status="locked"><span>Exercise 6</span><span>Lost Pet</span><div class="status-container"><div class="status-completed"><div class="status-badge done">Done!</div><div class="xp-badge">+10XP</div></div><div class="status-available"><a href="lab-html.html" class="status-badge start pixel-btn blue">Start</a></div><div class="status-locked"><div class="status-badge pending">???</div></div></div></div>
+                        <div class="exercise-item" data-status="locked"><span>Exercise 7</span><span>Final Element</span><div class="status-container"><div class="status-completed"><div class="status-badge done">Done!</div><div class="xp-badge">+10XP</div></div><div class="status-available"><a href="lab-html.html" class="status-badge start pixel-btn blue">Start</a></div><div class="status-locked"><div class="status-badge pending">???</div></div></div></div>
+                        <!-- ... 1 more exercises -->
+                    </div>
+                </div>
+            </div>
+            <aside class="user-progress-container">
+                <div class="user-profile-card">
+                    <h3 class="user-name">Your Name</h3>
+                    <p class="user-level">Level 1</p>
+                    <a href="#" class="view-profile-btn">View Profile</a>
+                </div>
+                <div class="progress-details-card">
+                    <h4>Course Progress</h4>
+                    <div class="progress-item">
+                        <span class="progress-label">Exercises</span><span class="progress-value">1 / 49</span>
+                    </div>
+                    <div class="progress-item">
+                        <span class="progress-label">Projects Completed</span><span class="progress-value">0 / 1</span>
+                    </div>
+                    <div class="progress-item">
+                        <span class="progress-label">Jumlah XP</span><span class="progress-value">0 / 350</span>
+                    </div>
+                    <div class="progress-item">
+                        <span class="progress-label">Progress Materi</span><span class="progress-value">0 / 5</span>
+                    </div>
+                </div>
+            </aside>
+        </section>
+    </main>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Accordion logic
+        const chapterCards = document.querySelectorAll(".chapter-card");
+        chapterCards.forEach(card => {
+            const header = card.querySelector('.chapter-header');
+            if (header) {
+                header.addEventListener('click', () => {
+                    const wasActive = card.classList.contains('active');
+                    chapterCards.forEach(c => {
+                        if (c !== card) c.classList.remove('active');
+                    });
+                    card.classList.toggle('active', !wasActive);
+                });
+            }
+        });
+
+        // Dynamic hero button logic
+        const completedExercises = document.querySelectorAll('.exercise-item[data-status="completed"]');
+        const learningButton = document.querySelector('.hero-button');
+        if (completedExercises.length > 0 && learningButton) {
+            learningButton.textContent = 'Resume Learning';
+        }
+
+        // Sequential Exercise Logic
+        function updateExerciseState() {
+            const allExercises = document.querySelectorAll('.exercise-item');
+            let previousCompleted = true;
+
+            allExercises.forEach(exercise => {
+                const currentStatus = exercise.getAttribute('data-status');
+                if (currentStatus === 'completed') {
+                    previousCompleted = true;
+                } else {
+                    if (previousCompleted) {
+                        exercise.setAttribute('data-status', 'available');
+                        previousCompleted = false;
+                    } else {
+                        exercise.setAttribute('data-status', 'locked');
+                    }
+                }
+            });
+            // Panggilan ke addStartButtonListeners() 
+        }
+
+        // SELURUH FUNGSI addStartButtonListeners() DIHAPUS
+
+        // Initial setup on page load
+        updateExerciseState();
+    });
+</script>
