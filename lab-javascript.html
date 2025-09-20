@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab JavaScript - Coding Learn</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-dark-primary: #0E1623;
+            --bg-dark-secondary: #121C2D;
+            --bg-editor: #1A2841;
+            --text-primary: #FFFFFF;
+            --text-secondary: #a0aec0;
+            --border-color: #2d3748;
+            --yellow: #ffc700;
+            --green: #4ade80;
+            --red: #f87171;
+            --pixel-yellow-border: #c58d0d;
+            --pixel-yellow-shadow: #946300;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background-color: var(--bg-dark-primary);
+            color: var(--text-primary);
+            font-family: 'Source Code Pro', monospace;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .lab-header {
+            display: flex; align-items: center; padding: 1rem 2rem; background-color: var(--bg-dark-secondary); border-bottom: 2px solid var(--border-color); flex-shrink: 0;
+        }
+        .lab-header .brand {
+            font-family: 'Press Start 2P', cursive; font-size: 1.2rem; color: var(--yellow); text-decoration: none;
+        }
+        .lab-header .breadcrumb {
+            margin-left: 2rem; color: var(--text-secondary);
+        }
+        .lab-header .progress-bar-container {
+            display: flex; align-items: center; margin-left: 1rem; flex-grow: 1; max-width: 200px;
+        }
+        .lab-header .progress-bar {
+            width: 100%; height: 10px; background-color: var(--bg-editor); border-radius: 5px; overflow: hidden;
+        }
+        .lab-header .progress-bar-fill {
+            height: 100%; background-color: var(--green); border-radius: 5px; transition: width 0.3s ease;
+        }
+        .lab-header .progress-percent {
+            margin-left: 0.75rem; font-size: 0.9rem; font-weight: bold;
+        }
+        .lab-main {
+            display: grid; grid-template-columns: 1fr 1.2fr 1fr; height: calc(100vh - 120px); gap: 2px; background-color: var(--border-color); padding: 2px;
+        }
+        .panel {
+            background-color: var(--bg-dark-secondary); padding: 1.5rem; overflow-y: auto;
+        }
+        .panel-instructions h1 {
+            font-family: 'Press Start 2P', cursive; font-size: 1.8rem; margin-bottom: 2rem; line-height: 1.4;
+        }
+        .panel-instructions h2 {
+            font-family: 'Press Start 2P', cursive; font-size: 1.2rem; color: var(--yellow); margin-bottom: 1rem; margin-top: 2rem;
+        }
+        .panel-instructions p {
+            color: var(--text-secondary); line-height: 1.6; margin-bottom: 1rem;
+        }
+        .panel-instructions code {
+            background-color: var(--bg-editor); padding: 2px 6px; border-radius: 4px; font-weight: bold;
+        }
+        .panel-editor {
+            display: flex; flex-direction: column; background-color: var(--bg-editor); padding: 0;
+        }
+        .editor-header {
+            padding: 0.75rem 1.5rem; background-color: var(--bg-dark-secondary); font-weight: bold; display: flex; align-items: center; gap: 0.5rem;
+        }
+        .editor-header i { color: #f7df1e; } /* Warna ikon JS */
+        .editor-area { display: flex; flex-grow: 1; position: relative; }
+        #line-numbers {
+            padding: 1rem 0.75rem 1rem 1.5rem; font-size: 1rem; color: var(--text-secondary); text-align: right; user-select: none; line-height: 1.5;
+        }
+        #code-editor {
+            flex-grow: 1; width: 100%; background-color: transparent; border: none; color: var(--text-primary); font-family: 'Source Code Pro', monospace; font-size: 1rem; padding: 1rem; resize: none; line-height: 1.5;
+        }
+        #code-editor:focus { outline: none; }
+        .editor-controls {
+            padding: 1rem 1.5rem; background-color: var(--bg-dark-secondary); display: flex; gap: 1rem;
+        }
+        .editor-btn {
+            font-family: 'Press Start 2P', cursive; padding: 0.75rem 1.5rem; font-size: 0.9rem; border: none; border-radius: 6px; cursor: pointer; transition: background-color 0.2s;
+        }
+        .btn-run { background-color: #2563eb; color: white; }
+        .btn-run:hover { background-color: #3b82f6; }
+        .btn-submit { background-color: transparent; color: var(--text-secondary); border: 2px solid var(--border-color); }
+        .btn-submit:hover { background-color: var(--border-color); color: var(--text-primary); }
+        .panel-output {
+            padding: 0; background-color: var(--bg-dark-primary); display: flex; flex-direction: column;
+        }
+        .output-header {
+            padding: 0.75rem 1.5rem; background-color: var(--bg-dark-secondary); font-weight: bold; display: flex; justify-content: space-between; align-items: center;
+        }
+        .output-header #refresh-btn {
+            background: none; border: none; color: var(--text-secondary); cursor: pointer; font-size: 1rem;
+        }
+        #output-frame {
+            width: 100%; height: 100%; border: none; flex-grow: 1; background-color: #1a2841; padding: 1rem; color: white; font-family: 'Source Code Pro', monospace; overflow-y: auto;
+        }
+        .lab-footer {
+            display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; background-color: var(--bg-dark-secondary); border-top: 2px solid var(--border-color); flex-shrink: 0;
+        }
+        .system-log {
+            font-family: 'Source Code Pro', monospace; color: var(--text-secondary); font-size: 0.9rem;
+        }
+        .system-log .cursor {
+            display: inline-block; background-color: var(--green); margin-left: 5px; width: 10px; height: 1em; animation: blink 1s infinite; vertical-align: middle;
+        }
+        @keyframes blink { 0%, 49% { opacity: 1; } 50%, 99% { opacity: 0; } 100% { opacity: 1; } }
+        .nav-buttons .pixel-btn { padding: 0.75rem 2rem; font-size: 1rem; }
+        .pixel-btn {
+            font-family: 'Press Start 2P', cursive; text-decoration: none; cursor: pointer; border: 4px solid; position: relative; top: 0; transition: all 0.1s ease-in-out; border-radius: 8px;
+        }
+        .pixel-btn:active { top: 6px; box-shadow: none; }
+        .pixel-btn.yellow {
+            background-color: var(--yellow); color: var(--bg-dark-primary); border-color: var(--pixel-yellow-border); box-shadow: 0 6px 0 0 var(--pixel-yellow-shadow);
+        }
+        .pixel-btn.gray { background-color: #4b5563; color: var(--text-secondary); border-color: #1f2937; box-shadow: 0 6px 0 0 #111827; }
+        .pixel-btn:disabled {
+            background-color: #374151; color: #6b7280; border-color: #1f2937; box-shadow: 0 6px 0 0 #111827; cursor: not-allowed; top: 0;
+        }
+        .pixel-btn:disabled:active { top: 0; }
+        .feedback-modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: none; justify-content: center; align-items: center; z-index: 1000;
+        }
+        .feedback-modal-content {
+            background-color: var(--bg-dark-secondary);
+            border: 2px solid var(--border-color);
+            padding: 2.5rem 3rem;
+            text-align: center;
+            font-family: 'Press Start 2P', cursive;
+            box-shadow: 0 10px 0 0 #000;
+        }
+        .feedback-modal-content h3 { font-size: 1.5rem; margin-bottom: 1.5rem; }
+        .feedback-modal-content.success h3 { color: var(--green); }
+        .feedback-modal-content.error h3 { color: var(--red); }
+    </style>
+</head>
+<body>
+
+    <header class="lab-header">
+        <a href="belajar-javascript.html" class="brand">Coding Learning</a>
+        <div class="breadcrumb" id="breadcrumb">JavaScript / ...</div>
+        <div class="progress-bar-container">
+            <div class="progress-bar"><div class="progress-bar-fill" id="progress-fill"></div></div>
+            <span class="progress-percent" id="progress-percent">0%</span>
+        </div>
+    </header>
+
+    <main class="lab-main">
+        <div class="panel panel-instructions" id="instructions-panel"></div>
+        <div class="panel panel-editor">
+            <div class="editor-header"><i class="fa-brands fa-js"></i><span>script.js</span></div>
+            <div class="editor-area">
+                <div id="line-numbers"></div>
+                <textarea id="code-editor" spellcheck="false"></textarea>
+            </div>
+            <div class="editor-controls">
+                <button class="editor-btn btn-run" id="run-btn">Jalankan</button>
+                <button class="editor-btn btn-submit" id="submit-btn">Kirim Jawaban</button>
+            </div>
+        </div>
+        <div class="panel panel-output">
+            <div class="output-header">
+                <span>Konsol Output</span>
+                <button id="refresh-btn" title="Muat Ulang Output"><i class="fa-solid fa-arrows-rotate"></i></button>
+            </div>
+            <div id="output-frame"></div>
+        </div>
+    </main>
+
+    <footer class="lab-footer">
+        <div class="system-log">
+            <span id="log-message">[Log Sistem]: Memulai...</span><span class="cursor"></span>
+        </div>
+        <div class="nav-buttons">
+            <button class="pixel-btn gray" id="back-btn">Kembali</button>
+            <button class="pixel-btn yellow" id="next-btn">Lanjut</button>
+        </div>
+    </footer>
+    
+    <div class="feedback-modal-overlay" id="feedback-modal">
+        <div class="feedback-modal-content" id="modal-content">
+            <h3 id="modal-title"></h3>
+            <button class="pixel-btn yellow" id="modal-close-btn">Lanjutkan</button>
+        </div>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const UIElements = {
+            codeEditor: document.getElementById('code-editor'),
+            outputFrame: document.getElementById('output-frame'),
+            runBtn: document.getElementById('run-btn'),
+            submitBtn: document.getElementById('submit-btn'),
+            refreshBtn: document.getElementById('refresh-btn'),
+            lineNumbers: document.getElementById('line-numbers'),
+            instructionsPanel: document.getElementById('instructions-panel'),
+            breadcrumb: document.getElementById('breadcrumb'),
+            progressFill: document.getElementById('progress-fill'),
+            progressPercent: document.getElementById('progress-percent'),
+            logMessage: document.getElementById('log-message'),
+            nextBtn: document.getElementById('next-btn'),
+            backBtn: document.getElementById('back-btn'),
+            feedbackModal: document.getElementById('feedback-modal'),
+            modalContent: document.getElementById('modal-content'),
+            modalTitle: document.getElementById('modal-title'),
+            modalCloseBtn: document.getElementById('modal-close-btn'),
+        };
+
+        const commentText = '// Tulis kode di bawah ini ❤️';
+        const localStorageKey = 'jsLabProgress';
+
+        const allExercises = [
+            // Chapter 1
+            { id: 1, chapter: 1, chapterName: "Dasar-Dasar JavaScript", name: "Hello, World!", solution: { regex: /console\.log\s*\(\s*["']Hello, World!["']\s*\)/ }, content: { title: "01. Hello, World!", h2: "Perintah Pertama", paragraphs: ["<code>console.log()</code> adalah cara untuk menampilkan output di konsol JavaScript. Ini sangat berguna untuk debugging dan melihat hasil kodemu."], instructions: "Tampilkan teks 'Hello, World!' ke konsol menggunakan <code>console.log()</code>."}},
+            { id: 2, chapter: 1, chapterName: "Dasar-Dasar JavaScript", name: "Komentar Kode", solution: { regex: /\/\/.+/ }, content: { title: "02. Komentar", h2: "Meninggalkan Catatan", paragraphs: ["Komentar adalah baris kode yang diabaikan oleh JavaScript. Mereka digunakan untuk meninggalkan catatan untuk dirimu sendiri atau developer lain. Komentar satu baris dimulai dengan <code>//</code>."], instructions: "Tulis komentar satu baris apa pun di editor."}},
+            { id: 3, chapter: 1, chapterName: "Dasar-Dasar JavaScript", name: "Variabel", solution: { regex: /var\s+\w+\s*=\s*.+;/ }, content: { title: "03. Variabel", h2: "Menyimpan Data", paragraphs: ["Variabel adalah wadah untuk menyimpan nilai data. Di JavaScript, kita bisa mendeklarasikan variabel menggunakan kata kunci <code>var</code>."], instructions: "Deklarasikan variabel bernama <code>nama</code> menggunakan <code>var</code> dan berikan nilai apa pun."}},
+            { id: 4, chapter: 1, chapterName: "Dasar-Dasar JavaScript", name: "Tipe Data: String", solution: { regex: /var\s+\w+\s*=\s*["'].*["'];/ }, content: { title: "04. String", h2: "Data Teks", paragraphs: ["String adalah urutan karakter yang digunakan untuk menyimpan teks. String harus ditulis di dalam tanda kutip tunggal (<code>''</code>) atau ganda (<code>\"\"</code>)."], instructions: "Buat variabel bernama <code>kota</code> dan berikan nilai string (nama kota)."}},
+            { id: 5, chapter: 1, chapterName: "Dasar-Dasar JavaScript", name: "Tipe Data: Angka", solution: { regex: /var\s+\w+\s*=\s*\d+;/ }, content: { title: "05. Angka", h2: "Data Numerik", paragraphs: ["JavaScript juga memiliki tipe data angka (Number), yang dapat berupa bilangan bulat atau desimal. Angka tidak memerlukan tanda kutip."], instructions: "Buat variabel bernama <code>umur</code> dan berikan nilai berupa angka."}},
+            { id: 6, chapter: 1, chapterName: "Dasar-Dasar JavaScript", name: "Variabel const & let", solution: { regex: /(let\s+\w+\s*=\s*.+;|const\s+\w+\s*=\s*.+;)/ }, content: { title: "06. const & let", h2: "Variabel Modern", paragraphs: ["Selain <code>var</code>, ada <code>let</code> dan <code>const</code>. <code>let</code> adalah variabel yang nilainya bisa diubah, sementara <code>const</code> adalah konstanta yang nilainya tidak bisa diubah setelah ditetapkan."], instructions: "Buat satu variabel menggunakan <code>let</code> dan satu lagi menggunakan <code>const</code>."}},
+            { id: 7, chapter: 1, chapterName: "Dasar-Dasar JavaScript", name: "Penggabungan String", solution: { regex: /["'].*["']\s*\+\s*["'].*["']/ }, content: { title: "07. Penggabungan", h2: "Menggabungkan Teks", paragraphs: ["Kamu dapat menggabungkan dua string atau lebih menggunakan operator <code>+</code>."], instructions: "Gabungkan dua string menggunakan operator <code>+</code> dan tampilkan hasilnya dengan <code>console.log()</code>."}},
+            // Chapter 2
+            { id: 8, chapter: 2, chapterName: "Operator & Kondisi", name: "Operator Aritmatika", solution: { regex: /\d+\s*[\+\-\*\/]\s*\d+/ }, content: { title: "08. Aritmatika", h2: "Operasi Matematika", paragraphs: ["JavaScript mendukung operator aritmatika dasar seperti penjumlahan (<code>+</code>), pengurangan (<code>-</code>), perkalian (<code>*</code>), dan pembagian (<code>/</code>)."], instructions: "Lakukan operasi matematika apa pun antara dua angka dan simpan hasilnya dalam sebuah variabel."}},
+            { id: 9, chapter: 2, chapterName: "Operator & Kondisi", name: "Operator Perbandingan", solution: { regex: /.+\s*(===|!==|>|<|>=|<=)\s*.+/ }, content: { title: "09. Perbandingan", h2: "Membandingkan Nilai", paragraphs: ["Operator perbandingan digunakan untuk membandingkan dua nilai. Contohnya termasuk sama dengan (<code>===</code>), tidak sama dengan (<code>!==</code>), lebih besar dari (<code>></code>), dan kurang dari (<code><</code>)."], instructions: "Bandingkan dua nilai menggunakan salah satu operator perbandingan dan tampilkan hasilnya ke konsol."}},
+            { id: 10, chapter: 2, chapterName: "Operator & Kondisi", name: "Pernyataan If", solution: { regex: /if\s*\(\s*.*\s*\)\s*\{/ }, content: { title: "10. Pernyataan If", h2: "Membuat Keputusan", paragraphs: ["Pernyataan <code>if</code> digunakan untuk menjalankan blok kode hanya jika kondisi tertentu terpenuhi (bernilai benar)."], instructions: "Buat pernyataan <code>if</code> sederhana yang memeriksa suatu kondisi."}},
+            { id: 11, chapter: 2, chapterName: "Operator & Kondisi", name: "If...Else", solution: { regex: /if\s*\(.+\)\s*\{[\s\S]*\}\s*else\s*\{/ }, content: { title: "11. If...Else", h2: "Dua Kemungkinan", paragraphs: ["Gunakan <code>else</code> untuk menentukan blok kode yang akan dijalankan jika kondisi dalam pernyataan <code>if</code> tidak terpenuhi (bernilai salah)."], instructions: "Tulis struktur <code>if...else</code>."}},
+            { id: 12, chapter: 2, chapterName: "Operator & Kondisi", name: "Operator Logika", solution: { regex: /.+\s*(&&|\|\|)\s*.+/ }, content: { title: "12. Logika", h2: "Menggabungkan Kondisi", paragraphs: ["Operator logika seperti DAN (<code>&&</code>) dan ATAU (<code>||</code>) digunakan untuk menggabungkan beberapa kondisi."], instructions: "Gunakan operator <code>&&</code> atau <code>||</code> di dalam sebuah pernyataan <code>if</code>."}},
+            { id: 13, chapter: 2, chapterName: "Operator & Kondisi", name: "Tipe Data: Boolean", solution: { regex: /let\s+\w+\s*=\s*(true|false);/ }, content: { title: "13. Boolean", h2: "Benar atau Salah", paragraphs: ["Tipe data Boolean hanya memiliki dua nilai: <code>true</code> (benar) atau <code>false</code> (salah). Ini adalah hasil dari operasi perbandingan."], instructions: "Buat variabel dan berikan nilai <code>true</code> atau <code>false</code>."}},
+            { id: 14, chapter: 2, chapterName: "Operator & Kondisi", name: "Else If", solution: { regex: /if\s*\(.+\)\s*\{[\s\S]*\}\s*else\s+if\s*\(.+\)\s*\{/ }, content: { title: "14. Else If", h2: "Banyak Kondisi", paragraphs: ["Gunakan <code>else if</code> untuk menguji beberapa kondisi secara berurutan."], instructions: "Buat sebuah rantai kondisi menggunakan <code>if</code>, <code>else if</code>, dan <code>else</code>."}},
+            // Chapter 3
+            { id: 15, chapter: 3, chapterName: "Array & Loop", name: "Membuat Array", solution: { regex: /const\s+\w+\s*=\s*\[.*\];/ }, content: { title: "15. Membuat Array", h2: "Daftar Item", paragraphs: ["Array adalah variabel khusus yang dapat menampung lebih dari satu nilai sekaligus. Array dibuat dengan kurung siku <code>[]</code>."], instructions: "Buat sebuah array bernama <code>buah</code> yang berisi tiga nama buah."}},
+            { id: 16, chapter: 3, chapterName: "Array & Loop", name: "Mengakses Elemen", solution: { regex: /\w+\[\d+\]/ }, content: { title: "16. Mengakses Elemen", h2: "Mengambil Item", paragraphs: ["Kamu dapat mengakses elemen array dengan merujuk pada nomor indeksnya. Indeks array dimulai dari 0."], instructions: "Akses elemen kedua dari sebuah array dan tampilkan ke konsol."}},
+            { id: 17, chapter: 3, chapterName: "Array & Loop", name: "Properti .length", solution: { regex: /\w+\.length/ }, content: { title: "17. .length", h2: "Menghitung Item", paragraphs: ["Properti <code>.length</code> dari sebuah array mengembalikan jumlah elemen di dalam array tersebut."], instructions: "Gunakan <code>.length</code> untuk menemukan jumlah elemen dalam sebuah array."}},
+            { id: 18, chapter: 3, chapterName: "Array & Loop", name: "Metode .push()", solution: { regex: /\w+\.push\s*\(.+\)/ }, content: { title: "18. .push()", h2: "Menambah Item", paragraphs: ["Metode <code>.push()</code> menambahkan elemen baru ke akhir sebuah array."], instructions: "Tambahkan item baru ke sebuah array yang sudah ada menggunakan <code>.push()</code>."}},
+            { id: 19, chapter: 3, chapterName: "Array & Loop", name: "Loop For", solution: { regex: /for\s*\(\s*let\s+i\s*=\s*0;\s*i\s*<\s*\w*\.?\w+;\s*i\+\+\s*\)\s*\{/ }, content: { title: "19. Loop For", h2: "Pengulangan Terhitung", paragraphs: ["Loop <code>for</code> mengulangi blok kode sebanyak jumlah yang ditentukan."], instructions: "Buat sebuah loop <code>for</code> yang berjalan sebanyak 5 kali."}},
+            { id: 20, chapter: 3, chapterName: "Array & Loop", name: "Loop While", solution: { regex: /while\s*\(.+\)\s*\{/ }, content: { title: "20. Loop While", h2: "Pengulangan Berbasis Kondisi", paragraphs: ["Loop <code>while</code> terus mengulangi blok kode selama kondisi yang ditentukan masih benar."], instructions: "Buat sebuah loop <code>while</code> sederhana."}},
+            { id: 21, chapter: 3, chapterName: "Array & Loop", name: "Iterasi Array", solution: { regex: /for\s*\(.*\)\s*\{\s*console\.log\(\w+\[i\]\);\s*\}/s }, content: { title: "21. Iterasi Array", h2: "Mengunjungi Setiap Item", paragraphs: ["Cara umum untuk menggunakan loop <code>for</code> adalah dengan melakukan iterasi melalui elemen-elemen sebuah array."], instructions: "Gunakan loop <code>for</code> untuk menampilkan setiap item dalam sebuah array ke konsol."}},
+            // Chapter 4
+            { id: 22, chapter: 4, chapterName: "Fungsi", name: "Deklarasi Fungsi", solution: { regex: /function\s+\w+\s*\(\s*\)\s*\{/ }, content: { title: "22. Deklarasi", h2: "Blok Kode Bernama", paragraphs: ["Fungsi adalah blok kode yang dirancang untuk melakukan tugas tertentu. Fungsi dideklarasikan dengan kata kunci <code>function</code>, diikuti oleh nama fungsi."], instructions: "Deklarasikan sebuah fungsi bernama <code>sapa</code>."}},
+            { id: 23, chapter: 4, chapterName: "Fungsi", name: "Memanggil Fungsi", solution: { regex: /\w+\(\s*\);/ }, content: { title: "23. Memanggil", h2: "Menjalankan Fungsi", paragraphs: ["Kode di dalam fungsi tidak akan dijalankan sampai fungsi tersebut 'dipanggil'. Kamu memanggil fungsi dengan menggunakan namanya diikuti tanda kurung <code>()</code>."], instructions: "Panggil fungsi yang telah Anda buat di latihan sebelumnya."}},
+            { id: 24, chapter: 4, chapterName: "Fungsi", name: "Parameter", solution: { regex: /function\s+\w+\s*\(\s*\w+\s*\)\s*\{/ }, content: { title: "24. Parameter", h2: "Input untuk Fungsi", paragraphs: ["Parameter adalah nama-nama yang tercantum dalam definisi fungsi. Mereka bertindak sebagai variabel di dalam fungsi."], instructions: "Buat sebuah fungsi yang menerima satu parameter bernama <code>nama</code>."}},
+            { id: 25, chapter: 4, chapterName: "Fungsi", name: "Argumen", solution: { regex: /\w+\(\s*".*"\s*\);/ }, content: { title: "25. Argumen", h2: "Nilai untuk Parameter", paragraphs: ["Argumen adalah nilai nyata yang diteruskan ke (dan diterima oleh) fungsi saat dipanggil."], instructions: "Panggil sebuah fungsi dan berikan sebuah argumen string."}},
+            { id: 26, chapter: 4, chapterName: "Fungsi", name: "Pernyataan Return", solution: { regex: /return\s+.+;/ }, content: { title: "26. Return", h2: "Mengembalikan Nilai", paragraphs: ["Pernyataan <code>return</code> menghentikan eksekusi fungsi dan mengembalikan sebuah nilai."], instructions: "Buat sebuah fungsi yang mengembalikan sebuah nilai menggunakan <code>return</code>."}},
+            { id: 27, chapter: 4, chapterName: "Fungsi", name: "Ekspresi Fungsi", solution: { regex: /const\s+\w+\s*=\s*function\s*\(\s*\)\s*\{/ }, content: { title: "27. Ekspresi", h2: "Fungsi sebagai Nilai", paragraphs: ["Fungsi juga dapat didefinisikan sebagai ekspresi dan disimpan dalam sebuah variabel."], instructions: "Simpan sebuah fungsi anonim dalam sebuah variabel."}},
+            { id: 28, chapter: 4, chapterName: "Fungsi", name: "Scope", solution: { regex: /function\s*\w*\s*\(\s*\)\s*\{\s*let\s+\w+\s*=/ }, content: { title: "28. Scope", h2: "Jangkauan Variabel", paragraphs: ["Variabel yang dideklarasikan di dalam fungsi (local scope) tidak dapat diakses dari luar fungsi tersebut."], instructions: "Deklarasikan variabel menggunakan <code>let</code> di dalam sebuah fungsi."}},
+            // Chapter 5
+            { id: 29, chapter: 5, chapterName: "Manipulasi DOM", name: "getElementById", solution: { regex: /document\.getElementById\(\s*".*"\s*\)/ }, content: { title: "29. getElementById", h2: "Memilih Elemen", paragraphs: ["Document Object Model (DOM) adalah representasi HTML dari halaman web. JavaScript dapat memanipulasinya. <code>getElementById()</code> memilih elemen berdasarkan <code>id</code>-nya."], instructions: "Gunakan <code>document.getElementById()</code> untuk memilih sebuah elemen. (Hanya untuk validasi, tidak akan ada output visual)."}},
+            { id: 30, chapter: 5, chapterName: "Manipulasi DOM", name: "querySelector", solution: { regex: /document\.querySelector\(\s*".*"\s*\)/ }, content: { title: "30. querySelector", h2: "Selektor Serbaguna", paragraphs: ["<code>querySelector()</code> adalah metode yang lebih modern dan fleksibel untuk memilih elemen pertama yang cocok dengan selektor CSS yang ditentukan."], instructions: "Gunakan <code>document.querySelector()</code> untuk memilih sebuah elemen."}},
+            { id: 31, chapter: 5, chapterName: "Manipulasi DOM", name: "textContent", solution: { regex: /\.textContent\s*=\s*".*";/ }, content: { title: "31. textContent", h2: "Mengubah Teks", paragraphs: ["Properti <code>.textContent</code> digunakan untuk mendapatkan atau mengatur konten teks dari sebuah elemen."], instructions: "Ubah <code>.textContent</code> dari sebuah elemen yang dipilih."}},
+            { id: 32, chapter: 5, chapterName: "Manipulasi DOM", name: "Mengubah Style", solution: { regex: /\.style\.color\s*=\s*".*";/ }, content: { title: "32. Mengubah Style", h2: "Styling dengan JS", paragraphs: ["Kamu dapat mengubah gaya CSS sebuah elemen secara langsung menggunakan properti <code>.style</code>."], instructions: "Ubah properti <code>.style.color</code> dari sebuah elemen."}},
+            { id: 33, chapter: 5, chapterName: "Manipulasi DOM", name: "setAttribute", solution: { regex: /\.setAttribute\(\s*".*"\s*,\s*".*"\s*\)/ }, content: { title: "33. setAttribute", h2: "Mengatur Atribut", paragraphs: ["Metode <code>.setAttribute()</code> digunakan untuk mengatur nilai dari sebuah atribut pada elemen yang ditentukan."], instructions: "Gunakan <code>.setAttribute()</code> untuk mengatur atribut pada sebuah elemen."}},
+            { id: 34, chapter: 5, chapterName: "Manipulasi DOM", name: "addEventListener", solution: { regex: /\.addEventListener\(\s*".*"\s*,\s*\w+\s*\)/ }, content: { title: "34. addEventListener", h2: "Mendengarkan Event", paragraphs: ["<code>.addEventListener()</code> adalah cara untuk mendaftarkan sebuah 'pendengar' untuk sebuah 'event' pada sebuah elemen, seperti klik mouse atau penekanan tombol."], instructions: "Gunakan <code>.addEventListener()</code> untuk melampirkan sebuah fungsi ke sebuah elemen."}},
+            { id: 35, chapter: 5, chapterName: "Manipulasi DOM", name: "Event 'click'", solution: { regex: /\.addEventListener\(\s*["']click["']\s*,\s*function/ }, content: { title: "35. Event 'click'", h2: "Interaksi Pengguna", paragraphs: ["Event <code>'click'</code> adalah salah satu event yang paling umum. Ia 'terpicu' setiap kali pengguna mengklik sebuah elemen."], instructions: "Tambahkan event listener untuk event <code>'click'</code> pada sebuah elemen."}},
+        ];
+        let currentExerciseIndex = 0;
+        let progress = {};
+
+        function saveProgress() {
+            localStorage.setItem(localStorageKey, JSON.stringify(progress));
+        }
+
+        function loadProgress() {
+            progress = JSON.parse(localStorage.getItem(localStorageKey)) || {};
+        }
+
+        function updateSystemLog(message) {
+            UIElements.logMessage.textContent = `[Log Sistem]: ${message}`;
+        }
+        
+        function updateChapterProgress() {
+            const currentChapter = allExercises[currentExerciseIndex].chapter;
+            const exercisesInChapter = allExercises.filter(ex => ex.chapter === currentChapter);
+            const completedInChapter = exercisesInChapter.filter(ex => progress[ex.id]?.isCompleted).length;
+            const chapterProgress = (completedInChapter / exercisesInChapter.length) * 100;
+            UIElements.progressFill.style.width = `${chapterProgress}%`;
+            UIElements.progressPercent.textContent = `${Math.round(chapterProgress)}%`;
+        }
+        
+        function loadExercise(index) {
+            currentExerciseIndex = index;
+            const exercise = allExercises[index];
+            UIElements.breadcrumb.textContent = `JavaScript / ${exercise.chapterName}`;
+            UIElements.instructionsPanel.innerHTML = `<h1>${exercise.content.title}</h1><h2>${exercise.content.h2}</h2>${exercise.content.paragraphs.map(p => `<p>${p}</p>`).join('')}<h2>Instruksi</h2><p>${exercise.content.instructions}</p>`;
+            UIElements.codeEditor.value = progress[exercise.id]?.userCode || commentText;
+            updateChapterProgress();
+            runCode();
+            updateLineNumbers();
+            UIElements.backBtn.disabled = index === 0;
+            const isLastExercise = index === allExercises.length - 1;
+            const isCompleted = progress[exercise.id]?.isCompleted || false;
+            UIElements.nextBtn.disabled = !isLastExercise && !isCompleted;
+            UIElements.nextBtn.textContent = (isLastExercise && isCompleted) ? "Selesai" : "Lanjut";
+            updateSystemLog(`Memuat Latihan ${exercise.id}: ${exercise.name}.`);
+        }
+
+        function updateLineNumbers() {
+            const lines = UIElements.codeEditor.value.split('\n').length;
+            UIElements.lineNumbers.innerHTML = Array.from({ length: lines }, (_, i) => `<div>${i + 1}</div>`).join('');
+        }
+
+        function validateCode(userInput) {
+            const solution = allExercises[currentExerciseIndex].solution;
+            if (!solution.regex) return false;
+            // Membersihkan komentar dari input pengguna sebelum validasi
+            const cleanedInput = userInput.replace(/\/\/.*$/gm, '').replace(/\/\*[\s\S]*?\*\//g, '');
+            return solution.regex.test(cleanedInput);
+        }
+
+        function runCode() {
+            const userCode = UIElements.codeEditor.value.replace(commentText, '');
+            UIElements.outputFrame.innerHTML = ''; // Bersihkan output sebelumnya
+            const originalLog = console.log;
+            console.log = function(...args) {
+                const message = args.map(arg => {
+                    if (arg === null) return 'null';
+                    if (arg === undefined) return 'undefined';
+                    if (typeof arg === 'object') {
+                        try {
+                           return JSON.stringify(arg);
+                        } catch (e) {
+                           return 'Object';
+                        }
+                    }
+                    return arg.toString();
+                }).join(' ');
+                const logEntry = document.createElement('div');
+                logEntry.textContent = `> ${message}`;
+                UIElements.outputFrame.appendChild(logEntry);
+                originalLog.apply(console, args);
+            };
+            try {
+                new Function(userCode)();
+            } catch (e) {
+                const errorEntry = document.createElement('div');
+                errorEntry.textContent = `> Error: ${e.message}`;
+                errorEntry.style.color = 'var(--red)';
+                UIElements.outputFrame.appendChild(errorEntry);
+            }
+            console.log = originalLog;
+        }
+        
+        function submitAnswer() {
+            const currentId = allExercises[currentExerciseIndex].id;
+            progress[currentId] = { ...progress[currentId], userCode: UIElements.codeEditor.value };
+
+            if (validateCode(UIElements.codeEditor.value)) {
+                progress[currentId].isCompleted = true;
+                showFeedbackModal("Benar!", true);
+                updateSystemLog("Jawaban benar. Kerja bagus!");
+                if (currentExerciseIndex < allExercises.length - 1) {
+                    UIElements.nextBtn.disabled = false;
+                }
+                if(currentExerciseIndex === allExercises.length - 1) {
+                   UIElements.nextBtn.textContent = "Selesai";
+                   UIElements.nextBtn.disabled = false;
+                }
+            } else {
+                progress[currentId].isCompleted = false;
+                showFeedbackModal("Kurang Tepat", false);
+                updateSystemLog("Jawaban kurang tepat. Coba lagi.");
+            }
+            updateChapterProgress();
+            saveProgress();
+        }
+        
+        function showFeedbackModal(message, isSuccess) {
+            UIElements.modalTitle.textContent = message;
+            UIElements.modalContent.className = 'feedback-modal-content ' + (isSuccess ? 'success' : 'error');
+            UIElements.feedbackModal.style.display = 'flex';
+        }
+
+        function navigate(direction) {
+            progress[allExercises[currentExerciseIndex].id] = { ...progress[allExercises[currentExerciseIndex].id], userCode: UIElements.codeEditor.value };
+            saveProgress();
+            const newIndex = direction === 'next' ? currentExerciseIndex + 1 : currentExerciseIndex - 1;
+            if (newIndex >= 0 && newIndex < allExercises.length) {
+                loadExercise(newIndex);
+            } else if (newIndex === allExercises.length) {
+                window.location.href = "belajar-javascript.html";
+            }
+        }
+
+        // --- Event Listeners ---
+        UIElements.runBtn.addEventListener('click', runCode);
+        UIElements.submitBtn.addEventListener('click', submitAnswer);
+        UIElements.refreshBtn.addEventListener('click', runCode);
+        UIElements.nextBtn.addEventListener('click', () => navigate('next'));
+        UIElements.backBtn.addEventListener('click', () => navigate('back'));
+        UIElements.codeEditor.addEventListener('input', updateLineNumbers);
+        UIElements.codeEditor.addEventListener('scroll', () => { UIElements.lineNumbers.scrollTop = UIElements.codeEditor.scrollTop; });
+        UIElements.modalCloseBtn.addEventListener('click', () => { UIElements.feedbackModal.style.display = 'none'; });
+        
+        // --- Initial Load ---
+        loadProgress(); 
+        const urlParams = new URLSearchParams(window.location.search);
+        const exerciseId = parseInt(urlParams.get('exercise')) || 1;
+        const startIndex = allExercises.findIndex(e => e.id === exerciseId);
+        loadExercise(startIndex !== -1 ? startIndex : 0);
+    });
+    </script>
+</body>
+</html>
+
